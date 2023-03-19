@@ -12,7 +12,6 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">商品一覧</h3>
-                    @can('admin-higher'){{-- 管理者に表示される --}}
                     <div class="card-tools">
                         <div class="input-group input-group-sm">
                             <div class="input-group-append">
@@ -20,7 +19,6 @@
                             </div>
                         </div>
                     </div>
-                    @endcan
                 </div>
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
@@ -33,17 +31,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($items as $item)
                                 <tr>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->type }}</td>
                                     <td></td>
-                                    <td><a href="{{ route('detail', ['id'=>$item->id]) }}" class="btn btn-outline-success ">詳細</a></td>
                                 </tr>
-                            @endforeach
                         </tbody>
                     </table>
                 </div>
+                <h2>商品について：</h2>
+                    <p>{!! nl2br(e($item->detail)) !!}</p>
             </div>
         </div>
     </div>

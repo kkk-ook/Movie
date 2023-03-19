@@ -33,4 +33,12 @@ class Item extends Model
      */
     protected $casts = [
     ];
+
+    /*
+    *リレーション
+    */
+    public function lendings()
+    {
+    return $this->hasMany(App\ItemReview::class,'id','id');
+    }
 }

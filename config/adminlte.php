@@ -226,9 +226,24 @@ return [
 
     'menu' => [
         [
+            'text' => 'ホーム',
+            'url'  => 'home',
+            'icon' => '',
+        ],
+        [
             'text' => '商品一覧',
             'url'  => 'items',
-            'icon' => 'fas fa-gamepad',
+            'icon' => '',
+        ],
+        [
+            'text' => 'レビュー',
+            'url'  => 'items',
+            'icon' => '',
+        ],
+        [
+            'text' => 'マイリスト',
+            'url'  => 'items',
+            'icon' => '',
         ],
 
         // AdminLTEデフォルト

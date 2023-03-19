@@ -24,8 +24,7 @@ class ItemController extends Controller
     public function index()
     {
         // 商品一覧取得
-        $items = Item
-            ::where('items.status', 'active')
+        $items = Item::where('items.status', 'active')
             ->select()
             ->get();
 
@@ -56,5 +55,17 @@ class ItemController extends Controller
         }
 
         return view('item.add');
+    }
+
+
+    /**
+     * 詳細画面
+     */ 
+    public function detail($id)
+    {
+        $item = Item::find($id);
+
+
+        return view('item.detail',compact('item'));
     }
 }

@@ -41,4 +41,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    /**
+     * ログイン者表示
+    */
+    public function Users()
+    {
+        return User::orderBy('name')->get();
+    }
 }
