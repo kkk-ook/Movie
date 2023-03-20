@@ -236,6 +236,11 @@ return [
             'icon' => '',
         ],
         [
+            'text' => 'ユーザー一覧',
+            'url'  => 'users',
+            'icon' => '',
+        ],
+        [
             'text' => 'レビュー',
             'url'  => 'items',
             'icon' => '',

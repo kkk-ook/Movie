@@ -3,52 +3,45 @@
 @section('title', '商品一覧')
 
 @section('content_header')
-    <h1>商品一覧</h1>
+    <h1>ユーザー一覧</h1>
 @stop
 
-    <div style="width:700px; margin:100px auto; text-align:center;">
-    <h4 class="name">ユーザー管理画面</h4>
-    
-    <div>
-        <table class="table table-bordered" margin-top=10px;>
-
-
-        <tr>
-            <th style ="width:50px; ">ID</th>
-            <th style ="width:150px;">名前</th>
-            <th style ="width:250px;">メールアドレス</th>
-            <th style ="width:150px;">ステータス</th>
-            <th></th>
-        
-        </tr>
-
+@section('content')
+@can('admin-higher'){{-- 管理者に表示される --}}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>名前</th>
+                                <th>メールアドレス</th>
+                                <th>登録日時</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($users as $user)
+                                <tr>
+                                    <td>{{ $user->id }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->updated_at }}</td>
+                                    <td><a href="{{ route('edit', ['id'=>$user->id]) }}" class="btn btn-default">編集</a></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        @foreach($users as $value)
-        <tr>
-            
-            <td>{{$value->id}}</td>
-            <td>{{$value->name}}</td>
-            <td>{{$value->email}}</td>
-            <td>@if($value->role == 1)管理者@endif</td>
-            
-            
-            <td><a href="user/edit/{{$value->id}}"><button class="btn btn-info btn-block btn-sm">編集</button></a></td>
-            
-        </tr>
-        @endforeach
-        </div>
-    </table>
     </div>
-    <div style="text-align:center;">
-    <a href="/home" class="btn btn-outline-info" role="button">ホームに戻る</a>
-    </div>
+@endcan
+@stop
 
-
-</body>
-
-<a class="pagetop" href="#">
-    <div class="pagetop__arrow"></div></a>
-    @section('css')
+@section('css')
 @stop
 
 @section('js')
