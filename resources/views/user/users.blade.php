@@ -7,7 +7,12 @@
 @stop
 
 @section('content')
-@can('admin-higher'){{-- 管理者に表示される --}}
+    <form class="form-inline" action="{{ route('userSearch') }}" method="get">
+        <div class="form-group d-flex mb-3">
+            <input type="text" name="keyword"  class="form-control" placeholder="キーワードを入力">
+            <input type="submit" value="検索" class="btn btn-primary">
+        </div>
+    </form>
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -38,7 +43,6 @@
             </div>
         </div>
     </div>
-@endcan
 @stop
 
 @section('css')

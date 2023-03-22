@@ -236,18 +236,19 @@ return [
             'icon' => '',
         ],
         [
+            'can' => 'admin-higher',
             'text' => 'ユーザー一覧',
             'url'  => 'users',
             'icon' => '',
         ],
         [
             'text' => 'レビュー',
-            'url'  => 'items',
+            'url'  => 'reviews',
             'icon' => '',
         ],
         [
-            'text' => 'マイリスト',
-            'url'  => 'items',
+            'text' => 'プロフィール',
+            'url'  => 'profile',
             'icon' => '',
         ],
 

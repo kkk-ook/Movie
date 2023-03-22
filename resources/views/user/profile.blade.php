@@ -1,14 +1,14 @@
 @extends('adminlte::page')
 
-@section('title', '商品一覧')
+@section('title', 'プロフィール編集')
 
 @section('content_header')
-    <h1>ユーザー編集</h1>
+    <h1>プロフィール編集</h1>
 @stop
 
 @section('content')
 
-<form action="{{ route('userEdit')}}" method="post">
+<form action="{{ route('profileEdit')}}" method="post">
     @csrf
 <!-- ログイン中の管理者かつ自分のID情報を表示する場合 または利用者が自分のID情報を表示する場合-->
 @if((Auth::user()->role == 1 && $user->id == Auth::id()) || Auth::user()->role == 0)
@@ -33,7 +33,7 @@
                 @endif
             </div>
             <div>
-                <dt>パスワード<small>※8文字以上、必須入力</small></dt>
+                <dt>パスワード<small>※8文字以上</small></dt>
                 <dd>
                     <input class="form-control" type="password" name="password">
                 </dd>
@@ -70,22 +70,14 @@
             <input class="form-control" type="hidden" name="id" value="{{$user->id}}">
         </div>
 
-        <dt>アクセス権限</dt>
-        <dd>
-            <input type="radio" name="role" value= "1" {{ $user->role == "1" ? "checked" : "" }}>管理者
-        </dd>
-        <dd>
-            <input type="radio" name="role" value= "0" {{ $user->role == "0" ? "checked" : "" }}>利用者
-        </dd>
-    </dl>
-
         
         <div class="form-group">
             <button type="submit" class="btn btn-primary">編集する</button>
         </div>
+
         <div class="form-group">
             <a href="/userDelete/{{$user->id}}"> 
-                <button type="submit" class="btn btn-secondary">削除する</button>
+                <button type="submit" class="btn btn-danger">削除する</button>
             </a>
         </div>
 

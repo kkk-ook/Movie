@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
     //home
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::post('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     //item
     Route::prefix('items')->group(function () {
         Route::get('/', [App\Http\Controllers\ItemController::class, 'index']);
@@ -35,8 +36,11 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
         Route::post('/add', [App\Http\Controllers\ItemController::class, 'add']);
     
         Route::get('/detail/{id}', [App\Http\Controllers\ItemController::class, 'detail'])->name('detail');
-    });
-    
+      });
+    //プロフィール編集
+    Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->name('profile');
+    Route::post('/profileEdit', [App\Http\Controllers\UserController::class, 'profileEdit'])->name('profileEdit');
+    Route::get('/profileDelete', [App\Http\Controllers\UserController::class, 'profileDelete'])->name('profileDelete');
   });
   
 /*管理者以上*/
@@ -46,5 +50,6 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
       Route::get('/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('edit');
       Route::post('/userEdit', [App\Http\Controllers\UserController::class, 'userEdit'])->name('userEdit');
       Route::get('/userDelete/{id}', [App\Http\Controllers\UserController::class, 'userDelete'])->name('userDelete');
-
+      
+      Route::get('/userSearch', [App\Http\Controllers\UserController::class, 'userSearch'])->name('userSearch');
   });
