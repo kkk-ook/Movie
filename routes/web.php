@@ -42,9 +42,9 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
 Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
     //ユーザー一覧
     Route::get('/users', [App\Http\Controllers\UserController::class, 'users'])->name('users');
-    Route::get('/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('edit');
-    Route::post('/userEdit', [App\Http\Controllers\UserController::class, 'userEdit'])->name('userEdit');
-    Route::get('/userDelete/{id}', [App\Http\Controllers\UserController::class, 'userDelete'])->name('userDelete');
+    Route::get('/userShow/{id}', [App\Http\Controllers\UserController::class, 'show'])->name('userShow');
+    Route::get('/userEdit/{id}', [App\Http\Controllers\UserController::class, 'userdit'])->name('userEdit');
+    Route::post('/userDelete/{id}', [App\Http\Controllers\UserController::class, 'userDelete'])->name('userDelete');
     Route::get('/userSearch', [App\Http\Controllers\UserController::class, 'userSearch'])->name('userSearch');
 
     //item
@@ -52,5 +52,8 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
     Route::get('/add', [App\Http\Controllers\ItemController::class, 'itemAdd'])->name('itemAdd');
     Route::post('/add', [App\Http\Controllers\ItemController::class, 'itemCreate'])->name('itemCreate');
     Route::get('/itemSearch', [App\Http\Controllers\ItemController::class, 'itemSearch'])->name('itemSearch');
+    Route::get('/itemShow/{id}', [App\Http\Controllers\ItemController::class, 'show'])->name('itemShow');
+    Route::get('/itemEdit/{id}', [App\Http\Controllers\ItemController::class, 'itemEdit'])->name('itemEdit');
+    Route::post('/itemDelete/{id}', [App\Http\Controllers\ItemController::class, 'itemDelete'])->name('itemDelete');
 
 });

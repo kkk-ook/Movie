@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-/*ユーザー一覧画面(管理者のみ)*/
-    //ユーザー一覧画面の表示
+/*ユーザー管理画面(管理者のみ)*/
+    //ユーザ-管理画面の表示
     public function users() {
         //認証ユーザー取得
         $user = Auth::user();
@@ -27,10 +27,10 @@ class UserController extends Controller
     }
 
     //編集画面の表示
-    public function edit(Request $request) {
+    public function show(Request $request, $id) {
         $users = User::where('id','=',$request->id)->first();
         
-        return view('user.edit')->with([
+        return view('user.userEdit')->with([
             'user' => $users,
         ]);
     }

@@ -39,7 +39,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="type">種別</label>
+                            <label for="type">ジャンル</label>
                             <select class="form-control  border-secondary" id="type" name="type">
                                 <option value="" selected disabled></option>
                                 @foreach(\App\Models\Item::TYPE as $key => $val)

@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', '商品一覧')
+@section('title', 'ユーザー管理')
 
 @section('content_header')
-    <h1>ユーザー一覧</h1>
+    <h1>ユーザー管理</h1>
 @stop
 
 @section('content')
@@ -34,7 +34,7 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->updated_at }}</td>
-                                    <td><a href="{{ route('edit', ['id'=>$user->id]) }}" class="btn btn-default">編集</a></td>
+                                    <td><a href="{{ route('userShow', $user->id) }}" class="btn btn-primary">編集</a></td>
                                 </tr>
                             @endforeach
                         </tbody>

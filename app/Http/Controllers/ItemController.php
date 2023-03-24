@@ -18,6 +18,9 @@ class ItemController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     *商品管理画面の表示
+     */
     public function items(){
         $items= Item::all();
         return view('item.items',compact("items"));
@@ -57,7 +60,7 @@ class ItemController extends Controller
             'type' => $request->type,
             'detail' => $request->detail
         ]);
-      
+    
         //商品一覧画面に戻る  
         return redirect()->route('items');
     }
@@ -79,8 +82,6 @@ class ItemController extends Controller
 
     }
 
-
-
     /**
      * 詳細画面
      */ 
@@ -91,4 +92,44 @@ class ItemController extends Controller
 
         return view('item.detail',compact('item'));
     }
+
+    //編集画面の表示
+    public function show(Request $request, $id) {
+        $items = Item::where('id','=',$request->id)->first();
+        
+        return view('item.itemEdit')->with([
+            'item' => $items,
+        ]);
+    }
+
+
+    //編集
+    public function itemEdit(Request $request) {
+            $request->validate([
+                'name' => ['required'],
+                'status' => ['required'],
+                'type' => ['required'],
+                'detail' => ['required'],
+            ]);
+    
+
+        //編集情報の保存
+        $items = Item::where('id', '=', $request->id)->first();
+        $items->name = $request->name;
+        $items->status =$request->status;
+        $items->type =$request->type;
+        $items->detail = $request->detail;
+        $items->save();
+
+        return redirect('items');
+    }
+    //削除
+    public function itemDelete(Request $request){
+        $item = Item::where('id' , '=' , $request->id)->first();
+
+            $item->delete();
+
+        return redirect('items');
+    }
+    
 }

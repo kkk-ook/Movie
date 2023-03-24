@@ -27,10 +27,12 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>名前</th>
+                                <th>作品名</th>
                                 <th>ステータス</th>
-                                <th>種別</th>
+                                <th>ジャンル</th>
                                 <th>更新日時</th>
+                                <th></th>
+                                <th></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -42,7 +44,14 @@
                                     <td><span class="p-1 text-white  {{ $item->status_class }}">{{$item->status_label}}</span></td>
                                     <td>{{$item->type_label}}</td>
                                     <td>{{ $item->created_at }}</td>
-                                    <td><a href="{{ route('detail', ['id'=>$item->id]) }}" class="btn btn-outline-success ">詳細</a></td>
+                                    <td><a href="{{ route('detail', ['id'=>$item->id]) }}" class="btn btn-outline-secondary">詳細</a></td>
+                                    <td><a href="{{ route('itemShow', $item->id) }}" class="btn btn-primary">編集</a></td>
+                                    <td>
+                                        <form action="{{ route('itemDelete',$item->id) }}" method="POST">
+                                        @csrf
+                                            <button type="submit" class="btn btn-danger">削除</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

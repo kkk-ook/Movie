@@ -8,7 +8,7 @@
 
 @section('content')
 
-<form action="{{ route('userEdit')}}" method="post">
+<form action="{{ route('userEdit',$user->id)}}" method="post">
     @csrf
 <!-- ログイン中の管理者かつ自分のID情報を表示する場合 または利用者が自分のID情報を表示する場合-->
 @if((Auth::user()->role == 1 && $user->id == Auth::id()) || Auth::user()->role == 0)
@@ -80,18 +80,20 @@
     </dl>
 
         
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">編集する</button>
-        </div>
-        <div class="form-group">
-            <a href="/userDelete/{{$user->id}}"> 
-                <button type="submit" class="btn btn-danger">削除する</button>
-            </a>
-        </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">編集する</button>
+    </div>
+</form>
 
-        <a href="/users" class="btn btn-outline-info" role="button">ユーザー管理に戻る </a>
-        
-        </form>
+<form action="{{ route('userDelete',$user->id) }}" method="POST">
+@csrf
+    <div class="form-group">
+        <button type="submit" class="btn btn-danger">削除する</button>
+    </div>
+</form>
+
+    <a href="/users" class="btn btn-outline-info" role="button">ユーザー管理に戻る </a>
+
     </div>   
 
     </div>
