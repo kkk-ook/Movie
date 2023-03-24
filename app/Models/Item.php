@@ -14,6 +14,7 @@ class Item extends Model
     protected $fillable = [
         'user_id',
         'name',
+        'status',
         'type',
         'detail',
     ];
@@ -34,6 +35,63 @@ class Item extends Model
     protected $casts = [
     ];
 
+    const STATUS = [
+        'active' => [ 'label' => '有効', 'class' => 'bg-primary' ],
+        'inactive' => [ 'label' => '無効', 'class' => 'bg-secondary' ],
+    ];
+
+    const TYPE = [
+        1 => [ 'label' => 'アクション'],
+        2 => [ 'label' => 'サスペンス・ミステリー'],
+        3 => [ 'label' => 'SF・ファンタジー'],
+        4 => [ 'label' => 'ホラー'],
+        5 => [ 'label' => 'ヒューマンドラマ'],
+        6 => [ 'label' => 'ラブロマンス'],
+        7 => [ 'label' => 'ドキュメンタリー'],
+        8 => [ 'label' => 'キッズ'],
+    ];
+
+
+    public function getStatusLabelAttribute()
+    {
+        // 状態値
+        $status = $this->attributes['status'];
+
+        // 定義されていなければ無効を返す
+        if (!isset(self::STATUS[$status])) {
+            return '無効';
+        }
+
+        return self::STATUS[$status]['label'];
+    }
+
+    public function getStatusClassAttribute()
+    {
+        // 状態値
+        $status = $this->attributes['status'];
+
+        // 定義されていなければ空を返す
+        if (!isset(self::STATUS[$status])) {
+            return '';
+        }
+
+        return self::STATUS[$status]['class'];
+    }
+    
+    public function getTypeLabelAttribute()
+    {
+        // 状態値
+        $type = $this->attributes['type'];
+
+        // 定義されていなければ空を返す
+        if (!isset(self::TYPE[$type])) {
+            return '';
+        }
+
+        return self::TYPE[$type]['label'];
+    }
+
+
     /*
     *リレーション
     */
@@ -41,4 +99,6 @@ class Item extends Model
     {
     return $this->hasMany(App\ItemReview::class,'id','id');
     }
+
+
 }

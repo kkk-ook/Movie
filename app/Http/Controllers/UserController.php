@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-/*ユーザー一覧*/
+/*ユーザー一覧画面(管理者のみ)*/
+    //ユーザー一覧画面の表示
     public function users() {
         //認証ユーザー取得
         $user = Auth::user();
@@ -25,7 +26,6 @@ class UserController extends Controller
         return view('user.users', compact('users'));
     }
 
-/*管理者*/
     //編集画面の表示
     public function edit(Request $request) {
         $users = User::where('id','=',$request->id)->first();
@@ -81,7 +81,25 @@ class UserController extends Controller
             }
     }
 
-/*ユーザー*/
+    //検索
+    public function userSearch(Request $request){
+        $query = User::query();
+
+        $keyword = $request->input('keyword');
+
+        if(!empty($keyword)) {
+            $query->where('name', 'LIKE', "%{$keyword}%")
+            -> orWhere('email', 'LIKE', "%{$keyword}%");
+        }
+
+        $users = $query->get();
+
+        return view('user.users', compact('users', 'keyword'));
+
+    }
+
+
+/*プロフィール画面(ユーザー以上)*/
     //プロフィール画面表示
     public function profile()
     {
@@ -112,34 +130,5 @@ class UserController extends Controller
         return redirect('profile');
         }
 
-
-/*****
-*ユーザー一覧画面表示
-******/
-    public function userSearch(Request $request){
-        $query = User::query();
-
-        //セレクトボックス
-        $select = $request->input('type');
-        //検索欄
-        $keyword = $request->input('keyword');
-
-        if(!empty($select)) {
-            $query->where('id', '=', "$select")
-            -> orWhere('email', 'LIKE', "%{$keyword}%");
-        }
-
-        if(!empty($keyword)) {
-            $query->where('name', 'LIKE', "%{$keyword}%")
-            -> orWhere('email', 'LIKE', "%{$keyword}%");
-        }
-
-    
-
-        $users = $query->get();
-
-        return view('user.users', compact('users', 'keyword'));
-
-    }
 }
 

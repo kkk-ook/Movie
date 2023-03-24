@@ -232,13 +232,7 @@ return [
         ],
         [
             'text' => '商品一覧',
-            'url'  => 'items',
-            'icon' => '',
-        ],
-        [
-            'can' => 'admin-higher',
-            'text' => 'ユーザー一覧',
-            'url'  => 'users',
+            'url'  => 'search',
             'icon' => '',
         ],
         [
@@ -249,6 +243,18 @@ return [
         [
             'text' => 'プロフィール',
             'url'  => 'profile',
+            'icon' => '',
+        ],
+        [
+            'can' => 'admin-higher',
+            'text' => '商品管理',
+            'url'  => 'items',
+            'icon' => '',
+        ],
+        [
+            'can' => 'admin-higher',
+            'text' => 'ユーザー管理',
+            'url'  => 'users',
             'icon' => '',
         ],
 

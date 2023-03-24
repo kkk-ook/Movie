@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', '商品一覧')
+@section('title', 'ユーザー編集')
 
 @section('content_header')
     <h1>ユーザー編集</h1>
@@ -75,7 +75,7 @@
             <input type="radio" name="role" value= "1" {{ $user->role == "1" ? "checked" : "" }}>管理者
         </dd>
         <dd>
-            <input type="radio" name="role" value= "0" {{ $user->role == "0" ? "checked" : "" }}>利用者
+            <input type="radio" name="role" value= "0" {{ $user->role == "0" ? "checked" : "" }}>ユーザー
         </dd>
     </dl>
 
@@ -85,7 +85,7 @@
         </div>
         <div class="form-group">
             <a href="/userDelete/{{$user->id}}"> 
-                <button type="submit" class="btn btn-secondary">削除する</button>
+                <button type="submit" class="btn btn-danger">削除する</button>
             </a>
         </div>
 

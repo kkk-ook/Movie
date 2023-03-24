@@ -18,44 +18,67 @@ class ItemController extends Controller
         $this->middleware('auth');
     }
 
+    public function items(){
+        $items= Item::all();
+        return view('item.items',compact("items"));
+    }
     /**
-     * 商品一覧
+     *商品登録画面の表示
      */
-    public function index()
+    public function itemAdd()
     {
-        // 商品一覧取得
-        $items = Item::where('items.status', 'active')
-            ->select()
-            ->get();
-
-        return view('item.index', compact('items'));
+        return view('item.add');
     }
 
     /**
      * 商品登録
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function add(Request $request)
-    {
-        // POSTリクエストのとき
-        if ($request->isMethod('post')) {
-            // バリデーション
-            $this->validate($request, [
-                'name' => 'required|max:100',
-            ]);
+    public function itemCreate(Request $request) {
 
-            // 商品登録
-            Item::create([
-                'user_id' => Auth::user()->id,
-                'name' => $request->name,
-                'type' => $request->type,
-                'detail' => $request->detail,
-            ]);
+        $this->validate($request, [
+            'name' => 'required|max:100',
+            'status'=>'required',
+            'type' => 'required|integer',
+            'detail' => 'required|max:500',
+        ],
+        [
+            'name.required' => '名前欄が入力されていません。',
+            'status.required' => 'ステータスが選択されていません。',
+            'type.required'  => '種別欄が選択されていません。',
+            'detail.required'  => '説明欄が入力されていません。',
+        ]);
 
-            return redirect('/items');
+        //**ユーザIDも登録する** */
+        Item::create([
+            'name' => $request->name,
+            'status' => $request->status,
+            'type' => $request->type,
+            'detail' => $request->detail
+        ]);
+      
+        //商品一覧画面に戻る  
+        return redirect()->route('items');
+    }
+
+        //検索
+    public function itemSearch(Request $request){
+        $query = Item::query();
+
+        $itemKeyword = $request->input('itemKeyword');
+
+        if(!empty($itemKeyword)) {
+            $query->where('name', 'LIKE', "%{$itemKeyword}%")
+            -> orWhere('detail', 'LIKE', "%{$itemKeyword}%");
         }
 
-        return view('item.add');
+        $items = $query->get();
+
+        return view('item.items', compact('items', 'itemKeyword'));
+
     }
+
 
 
     /**

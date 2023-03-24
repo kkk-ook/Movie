@@ -16,7 +16,7 @@
                     <div class="card-tools">
                         <div class="input-group input-group-sm">
                             <div class="input-group-append">
-                                <a href="{{ url('items/add') }}" class="btn btn-default">商品登録</a>
+                                <a href="{{ url('/add') }}" class="btn btn-default">商品登録</a>
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                                 <tr>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->type }}</td>
-                                    <td></td>
+                                    <td>{{ $item->review }}</td>
                                     <td><a href="{{ route('detail', ['id'=>$item->id]) }}" class="btn btn-outline-success ">詳細</a></td>
                                 </tr>
                             @endforeach
