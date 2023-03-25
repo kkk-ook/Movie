@@ -10,7 +10,13 @@
     <div class="d-flex justify-content-between">
         <form class="form-inline" action="{{ route('itemSearch') }}" method="get">
             <div class="form-group d-flex mb-3">
-                <input type="text" name="itemKeyword"  class="form-control" placeholder="キーワードを入力">
+                <select name="type" class="form-control bg-light" aria-label="Default select example">
+                    <option value="" selected>ジャンルを選択</option>
+                    @foreach(\App\Models\Item::TYPE as $key => $val)
+                    <option value="{{$key}}">{{ $val['label'] }}</option>
+                    @endforeach
+                </select>
+                <input type="text" name="itemKeyword" class="form-control pr-5" placeholder="キーワードを入力">
                 <input type="submit" value="検索" class="btn btn-primary">
             </div>
         </form>

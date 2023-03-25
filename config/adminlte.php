@@ -231,7 +231,7 @@ return [
             'icon' => '',
         ],
         [
-            'text' => '商品一覧',
+            'text' => '作品一覧',
             'url'  => 'search',
             'icon' => '',
         ],

@@ -18,26 +18,22 @@ class ItemController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     *商品管理画面の表示
-     */
+/**
+ *商品管理画面の表示
+    */
     public function items(){
         $items= Item::all();
         return view('item.items',compact("items"));
     }
-    /**
-     *商品登録画面の表示
-     */
+/**
+ *商品登録画面の表示
+    */
     public function itemAdd()
     {
         return view('item.add');
     }
 
-    /**
-     * 商品登録
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /*商品登録 */
     public function itemCreate(Request $request) {
 
         $this->validate($request, [
@@ -53,7 +49,6 @@ class ItemController extends Controller
             'detail.required'  => '説明欄が入力されていません。',
         ]);
 
-        //**ユーザIDも登録する** */
         Item::create([
             'name' => $request->name,
             'status' => $request->status,
@@ -65,12 +60,17 @@ class ItemController extends Controller
         return redirect()->route('items');
     }
 
-        //検索
+    /*検索*/
     public function itemSearch(Request $request){
         $query = Item::query();
 
+        //セレクトボックス
+        $selectType = $request->input('type');
         $itemKeyword = $request->input('itemKeyword');
 
+        if(!empty($selectType)) {
+            $query->where('type', '=', "$selectType");
+        }
         if(!empty($itemKeyword)) {
             $query->where('name', 'LIKE', "%{$itemKeyword}%")
             -> orWhere('detail', 'LIKE', "%{$itemKeyword}%");
@@ -82,9 +82,9 @@ class ItemController extends Controller
 
     }
 
-    /**
-     * 詳細画面
-     */ 
+/**
+ * 詳細画面の表示
+ */ 
     public function detail($id)
     {
         $item = Item::find($id);
@@ -93,7 +93,9 @@ class ItemController extends Controller
         return view('item.detail',compact('item'));
     }
 
-    //編集画面の表示
+/*
+*編集画面の表示
+*/
     public function show(Request $request, $id) {
         $items = Item::where('id','=',$request->id)->first();
         
@@ -103,7 +105,7 @@ class ItemController extends Controller
     }
 
 
-    //編集
+    /*編集*/
     public function itemEdit(Request $request) {
             $request->validate([
                 'name' => ['required'],
@@ -112,7 +114,6 @@ class ItemController extends Controller
                 'detail' => ['required'],
             ]);
     
-
         //編集情報の保存
         $items = Item::where('id', '=', $request->id)->first();
         $items->name = $request->name;
@@ -132,4 +133,32 @@ class ItemController extends Controller
         return redirect('items');
     }
     
+/**
+*一覧画面表示
+*/
+    public function search(Request $request){
+        //ステータスがactiveだけを取得
+        $query = Item::where('status', '=', 'active')->orderByDesc("updated_at");
+
+        //セレクトボックス
+        $selectType = $request->input('type');
+        //検索欄
+        $keyword = $request->input('keyword');
+
+        if(!empty($selectType)) {
+            $query->where('type', '=', "$selectType");
+        }
+
+        if(!empty($keyword)) {
+            $query->where('name', 'LIKE', "%{$keyword}%")
+            -> orWhere('detail', 'LIKE', "%{$keyword}%");
+        }
+
+    
+
+        $items = $query->get();
+
+        return view('item.search', compact('items', 'keyword'));
+
+    }
 }

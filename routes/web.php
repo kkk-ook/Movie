@@ -36,6 +36,10 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
     Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->name('profile');
     Route::post('/profileEdit', [App\Http\Controllers\UserController::class, 'profileEdit'])->name('profileEdit');
     Route::get('/profileDelete', [App\Http\Controllers\UserController::class, 'profileDelete'])->name('profileDelete');
+
+    Route::get('/search', [App\Http\Controllers\ItemController::class, 'search'])->name('search');
+    Route::post('/search', [App\Http\Controllers\ItemController::class, 'type'])->name('type');
+
 });
 
 /*管理者以上*/
