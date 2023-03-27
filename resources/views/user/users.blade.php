@@ -42,6 +42,9 @@
                 </div>
             </div>
         </div>
+        <div class="m-auto">
+            {{ $users->links() }}
+        </div>
     </div>
 @stop
 

@@ -130,5 +130,11 @@ class UserController extends Controller
         return redirect('profile');
         }
 
+
+        public function pagi()
+        {
+            $users = User::paginate(5);
+            return view('user.users', compact('users'));
+        }
 }
 

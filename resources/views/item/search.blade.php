@@ -47,8 +47,10 @@
                 </div>
             </div>
         </div>
+        <div class="m-auto">
+            {{ $items->links() }}
+        </div>
     </div>
-    {{ $items->links() }}
 
 @stop
 
