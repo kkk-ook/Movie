@@ -237,7 +237,7 @@ return [
         ],
         [
             'text' => 'レビュー',
-            'url'  => 'reviews',
+            'url'  => 'review',
             'icon' => '',
         ],
         [

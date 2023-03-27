@@ -27,7 +27,7 @@
                     <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
-                                <th>名前</th>
+                                <th>作品名</th>
                                 <th>ジャンル</th>
                                 <th>レビュー</th>
                                 <th></th>
@@ -37,7 +37,7 @@
                             @foreach ($items as $item)
                                 <tr>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{$item->type_label}}</td>
+                                    <td>{{ $item->getTypeLabelAttribute() }}</td>
                                     <td></td>
                                     <td><a href="{{ route('detail', ['id'=>$item->id]) }}" class="btn btn-outline-secondary">詳細</a></td>
                                 </tr>
@@ -48,6 +48,8 @@
             </div>
         </div>
     </div>
+    {{ $items->links() }}
+
 @stop
 
 @section('css')

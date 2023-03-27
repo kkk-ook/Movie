@@ -30,7 +30,7 @@
                                     @can('admin-higher'){{-- 管理者に表示される --}}
                                     <td><span class="p-1 text-white  {{ $item->status_class }}">{{$item->status_label}}</span></td>
                                     @endcan
-                                    <td>{{$item->type_label}}</td>
+                                    <td>{{$item->getTypeLabelAttribute()}}</td>
                                     <td>{{ $item->created_at }}</td>
                                 </tr>
                         </tbody>

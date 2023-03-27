@@ -48,7 +48,7 @@
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td><span class="p-1 text-white  {{ $item->status_class }}">{{$item->status_label}}</span></td>
-                                    <td>{{$item->type_label}}</td>
+                                    <td>{{$item->getTypeLabelAttribute()}}</td>
                                     <td>{{ $item->created_at }}</td>
                                     <td><a href="{{ route('detail', ['id'=>$item->id]) }}" class="btn btn-outline-secondary">詳細</a></td>
                                     <td><a href="{{ route('itemShow', $item->id) }}" class="btn btn-primary">編集</a></td>
@@ -65,7 +65,9 @@
                 </div>
             </div>
         </div>
+        {{ $items->links() }}
     </div>
+
 @stop
 
 @section('css')

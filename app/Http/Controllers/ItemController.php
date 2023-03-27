@@ -76,7 +76,7 @@ class ItemController extends Controller
             -> orWhere('detail', 'LIKE', "%{$itemKeyword}%");
         }
 
-        $items = $query->get();
+        $items = $query->paginate(5);
 
         return view('item.items', compact('items', 'itemKeyword'));
 
@@ -156,9 +156,17 @@ class ItemController extends Controller
 
     
 
-        $items = $query->get();
+        $items = $query->paginate(5);
 
         return view('item.search', compact('items', 'keyword'));
 
     }
+
+    public function pagi()
+    {
+        $items = Item::paginate(5);
+        return view('item.items', compact('items'));
+    }
+
+
 }

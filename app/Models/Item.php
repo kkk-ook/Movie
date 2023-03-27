@@ -95,9 +95,9 @@ class Item extends Model
     /*
     *リレーション
     */
-    public function lendings()
+    public function reviews()
     {
-    return $this->hasMany(App\ItemReview::class,'id','id');
+    return $this->hasMany(App\Models\ItemReview::class,'item_id','id');
     }
 
 

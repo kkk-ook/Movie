@@ -59,5 +59,5 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
     Route::get('/itemShow/{id}', [App\Http\Controllers\ItemController::class, 'show'])->name('itemShow');
     Route::get('/itemEdit/{id}', [App\Http\Controllers\ItemController::class, 'itemEdit'])->name('itemEdit');
     Route::post('/itemDelete/{id}', [App\Http\Controllers\ItemController::class, 'itemDelete'])->name('itemDelete');
-
+    Route::get('/items', [App\Http\Controllers\ItemController::class, 'pagi']);
 });

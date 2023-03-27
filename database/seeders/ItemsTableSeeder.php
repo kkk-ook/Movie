@@ -13,7 +13,7 @@ class ItemsTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 1 ; $i <= 5 ; $i++) {
+        for($i = 1 ; $i <= 11 ; $i++) {
     
             $item = new \App\Models\Item();
             $item -> name = 'テスト- '. $i;
