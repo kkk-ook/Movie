@@ -232,7 +232,7 @@ return [
         ],
         [
             'text' => '作品一覧',
-            'url'  => 'search',
+            'url'  => 'items',
             'icon' => '',
         ],
         [
@@ -243,12 +243,6 @@ return [
         [
             'text' => 'プロフィール',
             'url'  => 'profile',
-            'icon' => '',
-        ],
-        [
-            'can' => 'admin-higher',
-            'text' => '商品管理',
-            'url'  => 'items',
             'icon' => '',
         ],
         [

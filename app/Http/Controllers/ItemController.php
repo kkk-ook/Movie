@@ -18,16 +18,25 @@ class ItemController extends Controller
         $this->middleware('auth');
     }
 
-/**
- *商品管理画面の表示
-    */
+/***********************************
+ *作品一覧画面の表示
+*************************************/
     public function items(){
-        $items= Item::all();
+        //管理者ならtrue
+        $user = Auth::user();
+        $query = Item::query();
+        if($user->role == 1){
+        //ユーザーならfalse
+        } else { 
+            $query->where('status', '=', 'active');
+        }
+        $items = $query->paginate(5);
+        
         return view('item.items',compact("items"));
     }
-/**
+/**************************************
  *商品登録画面の表示
-    */
+****************************************/
     public function itemAdd()
     {
         return view('item.add');
@@ -57,34 +66,14 @@ class ItemController extends Controller
         ]);
     
         //商品一覧画面に戻る  
-        return redirect()->route('items');
+        return redirect('items');
     }
 
-    /*検索*/
-    public function itemSearch(Request $request){
-        $query = Item::query();
 
-        //セレクトボックス
-        $selectType = $request->input('type');
-        $itemKeyword = $request->input('itemKeyword');
 
-        if(!empty($selectType)) {
-            $query->where('type', '=', "$selectType");
-        }
-        if(!empty($itemKeyword)) {
-            $query->where('name', 'LIKE', "%{$itemKeyword}%")
-            -> orWhere('detail', 'LIKE', "%{$itemKeyword}%");
-        }
-
-        $items = $query->paginate(5);
-
-        return view('item.items', compact('items', 'itemKeyword'));
-
-    }
-
-/**
+/*************************************
  * 詳細画面の表示
- */ 
+****************************************/ 
     public function detail($id)
     {
         $item = Item::find($id);
@@ -93,9 +82,9 @@ class ItemController extends Controller
         return view('item.detail',compact('item'));
     }
 
-/*
+/**************************************
 *編集画面の表示
-*/
+*****************************************/
     public function show(Request $request, $id) {
         $items = Item::where('id','=',$request->id)->first();
         
@@ -133,12 +122,10 @@ class ItemController extends Controller
         return redirect('items');
     }
     
-/**
-*一覧画面表示
-*/
+/* 一覧画面検索 */
     public function search(Request $request){
-        //ステータスがactiveだけを取得
-        $query = Item::where('status', '=', 'active')->orderByDesc("updated_at");
+
+            $query = Item::query();            
 
         //セレクトボックス
         $selectType = $request->input('type');
@@ -158,10 +145,11 @@ class ItemController extends Controller
 
         $items = $query->paginate(5);
 
-        return view('item.search', compact('items', 'keyword'));
+        return view('item.items', compact('items', 'keyword'));
 
     }
 
+    /*ページネーション*/
     public function pagi()
     {
         $items = Item::paginate(5);
