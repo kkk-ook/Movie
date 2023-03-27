@@ -35,20 +35,20 @@
                         <thead>
                             <tr>
                                 @can('admin-higher'){{-- 管理者に表示される --}}
-                                <th>ID</th>
+                                    <th>ID</th>
                                 @endcan
                                 <th>作品名</th>
                                 @can('admin-higher'){{-- 管理者に表示される --}}
-                                <th>ステータス</th>
+                                    <th>ステータス</th>
                                 @endcan
                                 <th>ジャンル</th>
+                                <th>レビュー</th>
                                 @can('admin-higher'){{-- 管理者に表示される --}}
-                                <th>更新日時</th>
+                                    <th>更新日時</th>
                                 @endcan
                                 <th></th>
                                 @can('admin-higher'){{-- 管理者に表示される --}}
-                                <th></th>
-                                <th></th>
+                                    <th></th>
                                 @endcan
                             </tr>
                         </thead>
@@ -63,6 +63,7 @@
                                     <td><span class="p-1 text-white  {{ $item->status_class }}">{{$item->status_label}}</span></td>
                                     @endcan
                                     <td>{{$item->getTypeLabelAttribute()}}</td>
+                                    <td></td>
                                     @can('admin-higher'){{-- 管理者に表示される --}}
                                     <td>{{ $item->created_at }}</td>
                                     @endcan

@@ -125,7 +125,13 @@ class ItemController extends Controller
 /* 一覧画面検索 */
     public function search(Request $request){
 
-            $query = Item::query();            
+        $user = Auth::user();
+        $query = Item::query();
+        if($user->role == 1){
+        //ユーザーならfalse
+        } else { 
+            $query->where('status', '=', 'active');
+        }         
 
         //セレクトボックス
         $selectType = $request->input('type');
