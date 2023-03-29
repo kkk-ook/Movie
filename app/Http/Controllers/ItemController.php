@@ -163,4 +163,65 @@ class ItemController extends Controller
     }
 
 
+/**************************************
+*レビュー画面の表示
+*****************************************/
+public function reviewShow(){
+    //管理者ならtrue
+    $user = Auth::user();
+    $query = Item::query();
+    if($user->role == 1){
+    //ユーザーならfalse
+    } else { 
+        $query->where('status', '=', 'active');
+    }
+    $items = $query->paginate(5);
+    
+    return view('item.review',compact("items"));
 }
+
+
+public function review(Request $request) {
+
+        $result = false;
+
+        // バリデーション
+        $request->validate([
+            'item_id' => [
+                'required',
+                'exists:item,id',
+                function($attribute, $value, $fail) use($request) {
+
+                    if(!auth()->check()) {
+                        $fail('レビューするにはログインしてください。');
+                        return;
+                    }
+
+                    $exists = ItemReview::where('user_id' , '=' ,  $request->user()->id)
+                        ->where('item_id', '=' , $request->item_id)
+                        ->exists();
+
+                    if($exists) {
+
+                        $fail('すでにレビューは投稿済みです。');
+                        return;
+                    }
+
+                }
+            ],
+            'stars' => 'required|integer|min:1|max:5',
+            'comment' => 'required'
+        ]);
+
+        $review = new App\Models\ItemReview();
+        $review->item_id = $request->item_id;
+        $review->user_id = $request->user()->id;
+        $review->stars = $request->stars;
+        $review->comment = $request->comment;
+        $result = $review->save();
+        return ['result' => $result];
+
+    }
+
+}
+

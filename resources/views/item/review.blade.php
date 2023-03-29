@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', '作品一覧')
+@section('title', 'レビュー')
 
 @section('content_header')
-    <h1>作品一覧</h1>
+    <h1>レビュー</h1>
 @stop
 
 @section('content')
@@ -12,10 +12,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
+    <!-- Google font Icon -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
     <div class="d-flex justify-content-between">
-        <form class="form-inline" action="{{ route('search') }}" method="get">
+        <form class="form-inline" action="{{ route('review') }}" method="get">
             <div class="form-group d-flex mb-3">
                 <select name="type" class="form-control bg-light" aria-label="Default select example">
                     <option value="" selected>ジャンルを選択</option>
@@ -41,58 +42,48 @@
                     <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
-                                @can('admin-higher'){{-- 管理者に表示される --}}
-                                    <th>ID</th>
-                                @endcan
                                 <th>作品名</th>
-                                @can('admin-higher'){{-- 管理者に表示される --}}
-                                    <th>ステータス</th>
-                                @endcan
                                 <th>ジャンル</th>
                                 <th>レビュー</th>
-                                @can('admin-higher'){{-- 管理者に表示される --}}
-                                    <th>更新日時</th>
-                                @endcan
                                 <th></th>
-                                @can('admin-higher'){{-- 管理者に表示される --}}
-                                    <th></th>
-                                @endcan
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($items as $item)
                                 <tr>
-                                    @can('admin-higher'){{-- 管理者に表示される --}}
-                                        <td>{{ $item->id }}</td>
-                                    @endcan
                                     <td>{{ $item->name }}</td>
-                                    @can('admin-higher'){{-- 管理者に表示される --}}
-                                        <td><span class="p-1 text-white  {{ $item->status_class }}">{{$item->status_label}}</span></td>
-                                    @endcan
                                     <td>{{$item->getTypeLabelAttribute()}}</td>
                                     <td><!-- 平均レビュー数表示 --></td>
+                                    <td>
+                                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            レビューする
+                                        </button>
+                                    </td>
 
-                                    @can('admin-higher'){{-- 管理者に表示される --}}
-                                        <td>{{ $item->created_at }}</td>
-                                    @endcan
+                                    <!-- モーダル -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">レビュー</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ...
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+                                            <button type="button" class="btn btn-primary">投稿</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
                                     <td>
                                         <a href="{{ route('detail', ['id'=>$item->id]) }}" class="btn btn-outline-secondary">
                                             詳細
                                         </a>
                                     </td>
-                                    @can('admin-higher'){{-- 管理者に表示される --}}
-                                    <td>
-                                        <a href="{{ route('itemShow', ['id'=>$item->id]) }}" class="btn btn-primary">
-                                            編集
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <form action="{{ route('itemDelete',$item->id) }}" method="POST">
-                                        @csrf
-                                            <button type="submit" class="btn btn-danger">削除</button>
-                                        </form>
-                                    </td>
-                                    @endcan
                                 </tr>
                             @endforeach
                         </tbody>

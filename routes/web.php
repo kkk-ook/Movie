@@ -32,7 +32,6 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
 
     //作品一覧
     Route::get('/items', [App\Http\Controllers\ItemController::class, 'items'])->name('items');
-    // Route::get('/items', [App\Http\Controllers\ItemController::class, 'pagi']);
     
     //詳細画面
     Route::get('/detail/{id}', [App\Http\Controllers\ItemController::class, 'detail'])->name('detail');
@@ -45,6 +44,8 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
     Route::get('/search', [App\Http\Controllers\ItemController::class, 'search'])->name('search');
     Route::post('/search', [App\Http\Controllers\ItemController::class, 'type'])->name('type');
 
+    //レビュー
+    Route::get('/review', [App\Http\Controllers\ItemController::class, 'reviewShow'])->name('review');
 
 });
 
