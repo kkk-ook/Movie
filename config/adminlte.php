@@ -228,22 +228,22 @@ return [
         [
             'text' => 'ホーム',
             'url'  => 'home',
-            'icon' => '',
+            'icon' => 'fa fa-home',
         ],
         [
             'text' => '作品一覧',
             'url'  => 'items',
-            'icon' => '',
+            'icon' => 'fa fa-film',
         ],
         [
             'text' => 'レビュー',
             'url'  => 'review',
-            'icon' => '',
+            'icon' => 'fa fa-comments',
         ],
         [
             'text' => 'プロフィール',
             'url'  => 'profile',
-            'icon' => '',
+            'icon' => 'fa fa-user',
         ],
         [
             'can' => 'admin-higher',

@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
 
     //レビュー
     Route::get('/review', [App\Http\Controllers\ItemController::class, 'reviewShow'])->name('review');
+    Route::post('/review', [App\Http\Controllers\ItemController::class, 'review'])->name('review');
 
 });
 

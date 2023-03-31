@@ -1,9 +1,12 @@
 'use strict';
 {
-    var myModal = document.getElementById('myModal')
-    var myInput = document.getElementById('myInput')
-    
-    myModal.addEventListener('shown.bs.modal', ()=> {
-        myInput.focus()
-    })
+/*レビュー画面 レンジ*/
+    document.addEventListener('input', inputChange)
+
+    function inputChange(event) {
+        if(event.target.classList.contains('js-range')) {
+            event.target.nextElementSibling.innerText = event.target.value;
+
+        }
+    }
 }

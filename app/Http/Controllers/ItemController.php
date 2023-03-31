@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
+use App\Models\ItemReview;
+use Illuminate\Validation\Rule;
 
 class ItemController extends Controller
 {
@@ -183,45 +185,33 @@ public function reviewShow(){
 
 public function review(Request $request) {
 
-        $result = false;
-
         // バリデーション
         $request->validate([
-            'item_id' => [
-                'required',
-                'exists:item,id',
-                function($attribute, $value, $fail) use($request) {
+            // 'item_id' => [Rule::unique('items','id')->ignore(Auth::id())],
+            'stars' => 'required',
+            'comment' => 'max:500'
+        ],
+        [
+        'stars.required' => 'スコアが入力されていません。'
+    ]);
 
-                    if(!auth()->check()) {
-                        $fail('レビューするにはログインしてください。');
-                        return;
-                    }
+        if (!ItemReview::where(["user_id" => $request->user()->id, "item_id" => $request->item_id])->exists()) {
+            //レビューしていない時
+            $review = new ItemReview();
+        } else {
+            //既にレビューしている時
+            $review = ItemReview::where([["user_id", $request->user()->id ],[ "item_id", $request->item_id]])->first();
+        }
 
-                    $exists = ItemReview::where('user_id' , '=' ,  $request->user()->id)
-                        ->where('item_id', '=' , $request->item_id)
-                        ->exists();
-
-                    if($exists) {
-
-                        $fail('すでにレビューは投稿済みです。');
-                        return;
-                    }
-
-                }
-            ],
-            'stars' => 'required|integer|min:1|max:5',
-            'comment' => 'required'
-        ]);
-
-        $review = new App\Models\ItemReview();
-        $review->item_id = $request->item_id;
-        $review->user_id = $request->user()->id;
         $review->stars = $request->stars;
         $review->comment = $request->comment;
-        $result = $review->save();
-        return ['result' => $result];
+        $review->save();
+
+        return redirect('/review');
 
     }
 
-}
 
+
+
+}
