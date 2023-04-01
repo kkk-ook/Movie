@@ -72,6 +72,7 @@
                                             <form action="{{ route('review') }}" method="post">
                                             @csrf
                                             <input type="hidden" name="item_id" value="{{$item->id}}">
+                                            <input type="hidden" name="user_id" value="{{$user->id}}">
                                             <div class="modal-body">
                                                 <div class="title h4">{{$item->name}}</div>
                                                 <div class="score">

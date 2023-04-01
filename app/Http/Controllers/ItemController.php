@@ -179,7 +179,7 @@ public function reviewShow(){
     }
     $items = $query->paginate(5);
     
-    return view('item.review',compact("items"));
+    return view('item.review',compact("items","user"));
 }
 
 
@@ -202,7 +202,8 @@ public function review(Request $request) {
             //既にレビューしている時
             $review = ItemReview::where([["user_id", $request->user()->id ],[ "item_id", $request->item_id]])->first();
         }
-
+        $review->item_id = $request->item_id;
+        $review->user_id = $request->user_id;
         $review->stars = $request->stars;
         $review->comment = $request->comment;
         $review->save();
@@ -210,6 +211,7 @@ public function review(Request $request) {
         return redirect('/review');
 
     }
+
 
 
 
