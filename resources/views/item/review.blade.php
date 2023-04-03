@@ -13,7 +13,7 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <!-- Google font Icon -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
     <div class="d-flex justify-content-between">
         <form class="form-inline" action="{{ route('review') }}" method="get">
@@ -44,61 +44,71 @@
                             <tr>
                                 <th>作品名</th>
                                 <th>ジャンル</th>
-                                <th>レビュー</th>
-                                <th></th>
+                                <th>平均レビュー</th>
+                                <th>マイレビュー</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($items as $item)
-                                <tr>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{$item->getTypeLabelAttribute()}}</td>
-                                    <td><!-- 平均レビュー数表示 --></td>
-                                    <td>
-                                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#modal{{$item->id}}">
-                                            レビューする
-                                        </button>
-                                    </td>
-
-                                    <!-- モーダル -->
-                                    <div class="modal fade" id="modal{{$item->id}}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="modalLabel">レビュー</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <form action="{{ route('review') }}" method="post">
-                                            @csrf
-                                            <input type="hidden" name="item_id" value="{{$item->id}}">
-                                            <input type="hidden" name="user_id" value="{{$user->id}}">
-                                            <div class="modal-body">
-                                                <div class="title h4">{{$item->name}}</div>
-                                                <div class="score">
-                                                    <h6>スコア</h6>
-                                                    <input type="range" class="w-75 js-range" name="stars" step="0.1" min="0.1" max="5">
-                                                    <span class="h4" id="value">2.5</span>
-                                                </div>
-                                                <div class="text mt-3">
-                                                    <h6>スコア</h6>
-                                                    <textarea  maxlength="500" name="comment" id="comment" class="form-control border border-secondary" rows="5"></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
-                                                    <button type="submit" class="btn btn-primary">投稿</button>
-                                                </div>
-                                            </div>
-                                        </form>
+                            <tr>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->getTypeLabelAttribute() }}</td>
+                                <td>
+                                    @if($item->reviews->isNotEmpty())
+                                        {{ $item->reviews->avg('stars') }}
+                                    @endif
+                                </td>
+                                @php
+                                $myreview = $item->reviews->first(function ($value, $key) use ($user)  {return $value->user_id == $user->id;});
+                                @endphp
+                                <td>
+                                @if($myreview)
+                                    {{ $myreview->stars }}
+                                @endif
+                                </td>
+                                <td class="d-flex justify-content-around">
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal{{$item->id}}">
+                                        <span class="material-icons">remove_red_eye</span>
+                                    </button>
+                                    <a href="{{ route('detail', ['id'=>$item->id]) }}" class="btn btn-outline-secondary">
+                                        <span class="material-icons">description</span>
+                                    </a>
+                                </td>
+                                
+                                <!-- モーダル -->
+                                <div class="modal fade" id="modal{{$item->id}}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalLabel">レビュー</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
+                                        <form action="{{ route('review') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="item_id" value="{{$item->id}}">
+                                        <input type="hidden" name="user_id" value="{{$user->id}}">
+                                        <div class="modal-body">
+                                            <div class="title h4">{{ $item->name }}</div>
+                                            <div class="score">
+                                                <h6>スコア</h6>
+                                                <input type="range" class="w-75 js-range" name="stars" step="0.1" min="0.1" max="5"  value="{{ old('stars', $item->r_stars) }}">
+                                                <span class="h4" id="value">{{ $item->stars }}</span>
+                                            </div>
+                                            <div class="text mt-3">
+                                                <h6>スコア</h6>
+                                                <textarea  maxlength="500" name="comment" id="comment" class="form-control border border-secondary" rows="5">{{ old('comment', $item->comment) }}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+                                                <button type="submit" class="btn btn-primary">投稿</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                     </div>
-                                    <td>
-                                        <a href="{{ route('detail', ['id'=>$item->id]) }}" class="btn btn-outline-secondary">
-                                            詳細
-                                        </a>
-                                    </td>
-                                </tr>
+                                </div>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>

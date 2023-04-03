@@ -16,4 +16,8 @@ class ItemReview extends Model
             ->select('id', 'name');
 
     }
+
+    public function item(){
+        return $this->belongsTo(App\Models\Item::class, 'item_id', 'id');
+    }
 }

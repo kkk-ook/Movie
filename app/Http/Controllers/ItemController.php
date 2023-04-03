@@ -149,7 +149,7 @@ class ItemController extends Controller
             -> orWhere('detail', 'LIKE', "%{$keyword}%");
         }
 
-    
+
 
         $items = $query->paginate(5);
 
@@ -169,16 +169,15 @@ class ItemController extends Controller
 *レビュー画面の表示
 *****************************************/
 public function reviewShow(){
-    //管理者ならtrue
     $user = Auth::user();
-    $query = Item::query();
-    if($user->role == 1){
-    //ユーザーならfalse
-    } else { 
-        $query->where('status', '=', 'active');
+
+    $query =  Item::with('reviews');
+        //管理者ならtrue
+    if($user->role !== 1){
+        $query->where("status","active");
     }
     $items = $query->paginate(5);
-    
+
     return view('item.review',compact("items","user"));
 }
 
@@ -211,8 +210,6 @@ public function review(Request $request) {
         return redirect('/review');
 
     }
-
-
 
 
 

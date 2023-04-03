@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ItemReview;
 
 class Item extends Model
 {
@@ -97,7 +98,7 @@ class Item extends Model
     */
     public function reviews()
     {
-    return $this->hasMany(App\Models\ItemReview::class,'item_id','id');
+        return $this->hasMany(ItemReview::class);
     }
 
 
