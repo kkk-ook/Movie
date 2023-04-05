@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return User::orderBy('name')->get();
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(ItemReview::class);
+    }
 }

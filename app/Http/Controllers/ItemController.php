@@ -186,7 +186,6 @@ public function review(Request $request) {
 
         // バリデーション
         $request->validate([
-            // 'item_id' => [Rule::unique('items','id')->ignore(Auth::id())],
             'stars' => 'required',
             'comment' => 'max:500'
         ],

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class ItemsTableSeeder extends Seeder
+class UserTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,9 +15,8 @@ class ItemsTableSeeder extends Seeder
     {
         for($i = 1 ; $i <= 11 ; $i++) {
     
-            $item = new \App\Models\Item();
-            $item -> name = 'テスト- '. $i;
-            $item ->  type= $i;
+            $item = new \App\Models\User();
+            $item -> name = '太朗- '. $i;
             $item -> save();
     
         }

@@ -51,11 +51,14 @@
                                     <th>ステータス</th>
                                 @endcan
                                 <th>ジャンル</th>
-                                <th>レビュー</th>
+                                <th>平均レビュー</th>
                                 @can('admin-higher'){{-- 管理者に表示される --}}
                                     <th>更新日時</th>
                                 @endcan
                                 <th></th>
+                                @can('admin-higher'){{-- 管理者に表示される --}}
+                                    <th></th>
+                                @endcan
                                 @can('admin-higher'){{-- 管理者に表示される --}}
                                     <th></th>
                                 @endcan
@@ -72,7 +75,11 @@
                                         <td><span class="p-1 text-white  {{ $item->status_class }}">{{$item->status_label}}</span></td>
                                     @endcan
                                     <td>{{$item->getTypeLabelAttribute()}}</td>
-                                    <td><!-- 平均レビュー数表示 --></td>
+                                    <td>
+                                        @if($item->reviews->isNotEmpty())
+                                            {{ $item->reviews->avg('stars') }}
+                                        @endif
+                                    </td>
 
                                     @can('admin-higher'){{-- 管理者に表示される --}}
                                         <td>{{ $item->created_at }}</td>

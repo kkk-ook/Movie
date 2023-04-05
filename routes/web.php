@@ -27,8 +27,10 @@ Auth::routes();
 Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
     //ホーム
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'timeline'])->name('timeline');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::post('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'timeline'])->name('timeline');
 
     //作品一覧
     Route::get('/items', [App\Http\Controllers\ItemController::class, 'items'])->name('items');
