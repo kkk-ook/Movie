@@ -32,7 +32,7 @@ class ItemController extends Controller
         } else { 
             $query->where('status', '=', 'active');
         }
-        $items = $query->paginate(5);
+        $items = $query->paginate(10);
         
         return view('item.items',compact("items"));
     }
@@ -176,7 +176,7 @@ public function reviewShow(){
     if($user->role !== 1){
         $query->where("status","active");
     }
-    $items = $query->paginate(5);
+    $items = $query->paginate(10);
 
     return view('item.review',compact("items","user"));
 }

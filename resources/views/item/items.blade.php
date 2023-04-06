@@ -65,45 +65,46 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($items as $item)
-                                <tr>
-                                    @can('admin-higher'){{-- 管理者に表示される --}}
-                                        <td>{{ $item->id }}</td>
-                                    @endcan
-                                    <td>{{ $item->name }}</td>
-                                    @can('admin-higher'){{-- 管理者に表示される --}}
-                                        <td><span class="p-1 text-white  {{ $item->status_class }}">{{$item->status_label}}</span></td>
-                                    @endcan
-                                    <td>{{$item->getTypeLabelAttribute()}}</td>
-                                    <td>
-                                        @if($item->reviews->isNotEmpty())
-                                            {{ $item->reviews->avg('stars') }}
-                                        @endif
-                                    </td>
+                        @foreach ($items as $item)
+                            <tr>
+                                @can('admin-higher'){{-- 管理者に表示される --}}
+                                    <td>{{ $item->id }}</td>
+                                @endcan
+                                <td>{{ $item->name }}</td>
+                                @can('admin-higher'){{-- 管理者に表示される --}}
+                                    <td><span class="p-1 text-white  {{ $item->status_class }}">{{$item->status_label}}</span></td>
+                                @endcan
+                                <td>{{$item->getTypeLabelAttribute()}}</td>
+                                <td>
+                                    @if($item->reviews->isNotEmpty())
+                                        <span class="material-icons review-stars">star</span>
+                                        {{ $item->reviews->avg('stars') }}
+                                    @endif
+                                </td>
 
-                                    @can('admin-higher'){{-- 管理者に表示される --}}
-                                        <td>{{ $item->created_at }}</td>
-                                    @endcan
-                                    <td>
-                                        <a href="{{ route('detail', ['id'=>$item->id]) }}" class="btn btn-outline-secondary">
-                                            <span class="material-icons">description</span>
-                                        </a>
-                                    </td>
-                                    @can('admin-higher'){{-- 管理者に表示される --}}
-                                    <td>
-                                        <a href="{{ route('itemShow', ['id'=>$item->id]) }}" class="btn btn-primary">
-                                            編集
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <form action="{{ route('itemDelete',$item->id) }}" method="POST">
-                                        @csrf
-                                            <button type="submit" class="btn btn-danger">削除</button>
-                                        </form>
-                                    </td>
-                                    @endcan
-                                </tr>
-                            @endforeach
+                                @can('admin-higher'){{-- 管理者に表示される --}}
+                                    <td>{{ $item->created_at }}</td>
+                                @endcan
+                                <td>
+                                    <a href="{{ route('detail', ['id'=>$item->id]) }}" class="btn btn-outline-secondary">
+                                        <span class="material-icons">description</span>
+                                    </a>
+                                </td>
+                                @can('admin-higher'){{-- 管理者に表示される --}}
+                                <td>
+                                    <a href="{{ route('itemShow', ['id'=>$item->id]) }}" class="btn btn-primary">
+                                        編集
+                                    </a>
+                                </td>
+                                <td>
+                                    <form action="{{ route('itemDelete',$item->id) }}" method="POST">
+                                    @csrf
+                                        <button type="submit" class="btn btn-danger">削除</button>
+                                    </form>
+                                </td>
+                                @endcan
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

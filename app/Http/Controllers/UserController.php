@@ -133,7 +133,7 @@ class UserController extends Controller
 
         public function pagi()
         {
-            $users = User::paginate(5);
+            $users = User::paginate(10);
             return view('user.users', compact('users'));
         }
 }

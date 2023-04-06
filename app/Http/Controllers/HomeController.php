@@ -37,8 +37,10 @@ class HomeController extends Controller
     public function timeline(){
 
         $query =  Item::with('reviews');
+
         $items = $query->paginate(10);
 
         return view('home',compact("items"));
     }
 }
+

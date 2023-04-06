@@ -7,6 +7,12 @@
 @stop
 
 @section('content')
+    <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Google font Icon -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -14,30 +20,41 @@
                     <table class="table table-hover text-nowrap">
                     <thead>
                             <tr>
+                                @can('admin-higher'){{-- 管理者に表示される --}}
                                 <th>ID</th>
+                                @endcan
                                 <th>名前</th>
                                 @can('admin-higher'){{-- 管理者に表示される --}}
                                 <th>ステータス</th>
                                 @endcan
                                 <th>種別</th>
+                                <th>平均レビュー</th>
                                 <th>更新日時</th>
                             </tr>
                         </thead>
                         <tbody>
                                 <tr>
+                                    @can('admin-higher'){{-- 管理者に表示される --}}
                                     <td>{{ $item->id }}</td>
+                                    @endcan
                                     <td>{{ $item->name }}</td>
                                     @can('admin-higher'){{-- 管理者に表示される --}}
                                     <td><span class="p-1 text-white  {{ $item->status_class }}">{{$item->status_label}}</span></td>
                                     @endcan
                                     <td>{{$item->getTypeLabelAttribute()}}</td>
+                                    <td>
+                                        @if($item->reviews->isNotEmpty())
+                                            <span class="material-icons review-stars">star</span>
+                                            {{ $item->reviews->avg('stars') }}
+                                        @endif
+                                    </td>
                                     <td>{{ $item->created_at }}</td>
                                 </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="detail p-4">
-                    <h3>作品について：</h3>
+                    <h3>あらすじ：</h3>
                     <p>{!! nl2br(e($item->detail)) !!}</p>
                 </div>
             </div>

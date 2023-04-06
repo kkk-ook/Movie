@@ -56,6 +56,7 @@
                                 <td>{{ $item->getTypeLabelAttribute() }}</td>
                                 <td>
                                     @if($item->reviews->isNotEmpty())
+                                    <span class="material-icons">star</span>
                                         {{ $item->reviews->avg('stars') }}
                                     @endif
                                 </td>

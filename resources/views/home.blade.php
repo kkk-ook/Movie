@@ -17,21 +17,23 @@
     
 @foreach  ($items as $item)
     @foreach( $item->reviews as $user)
-    <div class="post w-75 mx-auto bg-white text-dark shadow-sm p-3 mb-5 bg-body rounded">
-        <div class="d-flex border-bottom pb-3 mb-3">
-            <h5></h5>
-            <div class="ml-5">
-                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal{{$item->id}}">
+    <div class="post">
+        <div class="post-inner">
+            <h2>{{ $item->name }}</h2>
+            <div class="post-btn">
+                <!-- <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal{{$item->id}}">
                     <span class="material-icons">remove_red_eye</span>
-                </button>
+                </button> -->
                 <a href="{{ route('detail', ['id'=>$item->id]) }}" class="btn btn-outline-secondary">
                     <span class="material-icons">description</span>
                 </a>
             </div>
         </div>
-        <h5>{{ $item->name }}</h5>
-        <p>{{ $user->stars }}</p>
-        <p>{{ $user->comment }}</p>
+        <div class="stars">
+            <span class="material-icons">star</span>
+            <p>{{ $user->stars }}</p>
+        </div>
+        <p>{!! nl2br(e($user->comment)) !!}</p>
     </div>
 
     <!-- モーダル -->
