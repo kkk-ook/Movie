@@ -22,6 +22,15 @@
                 <p>{{$errors->first('name')}}</p>
                 @endif    
             </div>
+            <div>
+                <dt>作品名(よみがな)</dt>
+                <dd>
+                    <input type="text" class="form-control border border-secondary" id="kana" name="kana" value="{{$item->kana}}">
+                </dd>
+                @if ($errors->has('name'))
+                <p>{{$errors->first('kana')}}</p>
+                @endif  
+            </div>
             <div class="form-group d-flex flex-column">
                 <dt for="status">ステータス</dt>
                 <dd>
@@ -55,7 +64,7 @@
                 @endif
             </div>
             <div class="form-group">
-                <dt>説明</dt>
+                <dt>あらすじ</dt>
                 <dd for="detail">
                     <textarea maxlength="500" name="detail" id="detail" class="form-control border border-secondary" rows="5">{{$item->detail}}</textarea>
                 </dd>

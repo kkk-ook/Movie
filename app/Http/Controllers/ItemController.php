@@ -100,6 +100,7 @@ class ItemController extends Controller
     public function itemEdit(Request $request) {
             $request->validate([
                 'name' => ['required'],
+                'kana' => ['required', 'regex:/^[ぁ-んァ-ン]+$/u'],
                 'status' => ['required'],
                 'type' => ['required'],
                 'detail' => ['required'],
@@ -108,6 +109,7 @@ class ItemController extends Controller
         //編集情報の保存
         $items = Item::where('id', '=', $request->id)->first();
         $items->name = $request->name;
+        $items->kana = $request->kana;
         $items->status =$request->status;
         $items->type =$request->type;
         $items->detail = $request->detail;
@@ -133,27 +135,34 @@ class ItemController extends Controller
         //ユーザーならfalse
         } else { 
             $query->where('status', '=', 'active');
-        }         
+        }
+
+        // 現在のリクエストに含まれるクエリ文字列を取得
+        $queryParams = $request->query();
 
         //セレクトボックス
         $selectType = $request->input('type');
-        //検索欄
-        $keyword = $request->input('keyword');
-
         if(!empty($selectType)) {
             $query->where('type', '=', "$selectType");
         }
-
+        //検索欄
+        $keyword = $request->input('keyword');
         if(!empty($keyword)) {
             $query->where('name', 'LIKE', "%{$keyword}%")
             -> orWhere('detail', 'LIKE', "%{$keyword}%");
         }
+        //チェックボックス
+        $selectOrder = $request->input('order');
+        if(!empty($selectOrder)) {
+            $query->orderBy('kana', 'asc');
+        }
 
 
+        $items = $query->paginate(10);
+        //次のページへのリンクに追加
+        $items->appends($queryParams);
 
-        $items = $query->paginate(5);
-
-        return view('item.items', compact('items', 'keyword'));
+        return view('item.items', compact('items'));
 
     }
 
@@ -209,7 +218,5 @@ public function review(Request $request) {
         return redirect('/review');
 
     }
-
-
 
 }

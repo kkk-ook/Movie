@@ -15,17 +15,31 @@
     <!-- Google font Icon -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
+<!-- 検索欄 -->
     <div class="d-flex justify-content-between">
-        <form class="form-inline" action="{{ route('review') }}" method="get">
+        <form class="form-inline" action="{{ route('search') }}" method="get">
             <div class="form-group d-flex mb-3">
+                <!-- セレクトボックス -->
                 <select name="type" class="form-control bg-light" aria-label="Default select example">
                     <option value="" selected>ジャンルを選択</option>
                     @foreach(\App\Models\Item::TYPE as $key => $val)
                     <option value="{{$key}}">{{ $val['label'] }}</option>
                     @endforeach
                 </select>
+                <!-- キーワード検索 -->
                 <input type="text" name="keyword" class="form-control pr-5" placeholder="キーワードを入力">
                 <input type="submit" value="検索" class="btn btn-primary">
+                <!-- チェックボックス -->
+                <div class="ml-5">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="order[]">
+                        <label class="form-check-label" for="inlineRadio1">あいう順</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                        <label class="form-check-label" for="inlineRadio2">2</label>
+                    </div>
+                </div>
             </div>
         </form>
         @can('admin-higher'){{-- 管理者に表示される --}}
@@ -35,6 +49,7 @@
         @endcan
     </div>
 
+<!-- 一覧 -->
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -56,7 +71,7 @@
                                 <td>{{ $item->getTypeLabelAttribute() }}</td>
                                 <td>
                                     @if($item->reviews->isNotEmpty())
-                                    <span class="material-icons">star</span>
+                                    <span class="material-icons review-stars">star</span>
                                         {{ $item->reviews->avg('stars') }}
                                     @endif
                                 </td>
@@ -65,11 +80,12 @@
                                 @endphp
                                 <td>
                                 @if($myreview)
+                                    <span class="material-icons review-stars">star</span>
                                     {{ $myreview->stars }}
                                 @endif
                                 </td>
                                 <td class="d-flex justify-content-around">
-                                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal{{$item->id}}">
+                                    <button type="button" class="btn btn-outline-black buttonChange @if($myreview) changeColor @endif" data-bs-toggle="modal" data-bs-target="#modal{{$item->id}}">
                                         <span class="material-icons">remove_red_eye</span>
                                     </button>
                                     <a href="{{ route('detail', ['id'=>$item->id]) }}" class="btn btn-outline-secondary">

@@ -7,10 +7,23 @@ table,tr,td{
     vertical-align: middle;
 }
 
-table span{
-    color: 	#F8B400;
+/*レビュー前のボタン*/
+.buttonChange{
+    background-color: #F8B400 !important;
+    opacity: .6;
+    filter: brightness(100%);
+    transition: filter .3s, background-color .3s;
 }
-
+.buttonChange:hover{
+    background-color: #F8B400;
+    filter: brightness(115%);
+    transition: filter .3s, background-color .5s;
+}
+/*レビュー後のボタン*/
+.changeColor{
+    background-color: #F8B400 !important;
+    opacity: 1;
+}
 /**********************
 **ホーム画面
 ************************/
@@ -72,3 +85,4 @@ td{
     position: relative;
     top: 5px;
 }
+

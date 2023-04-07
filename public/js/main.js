@@ -11,4 +11,10 @@
     }
 
 
+
+    document.addEventListener('data-stored', function (event) {
+    element.backgroundColor = '#F8B400';
+    element.style.opacity = '1';
+    });
+
 }

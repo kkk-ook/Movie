@@ -19,15 +19,28 @@
     <div class="d-flex justify-content-between">
         <form class="form-inline" action="{{ route('search') }}" method="get">
             <div class="form-group d-flex mb-3">
+                <!-- セレクトボックス -->
                 <select name="type" class="form-control bg-light" aria-label="Default select example">
                     <option value="" selected>ジャンルを選択</option>
                     @foreach(\App\Models\Item::TYPE as $key => $val)
                     <option value="{{$key}}">{{ $val['label'] }}</option>
                     @endforeach
                 </select>
+                <!-- キーワード検索 -->
                 <input type="text" name="keyword" class="form-control pr-5" placeholder="キーワードを入力">
                 <input type="submit" value="検索" class="btn btn-primary">
-            </div>
+                <!-- チェックボックス -->
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="order[]" id="inlineRadio1" value="option1">
+                        <label class="form-check-label" for="inlineRadio1">あいう順</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                        <label class="form-check-label" for="inlineRadio2">レビュー高い順</label>
+                    </div>
+                </div>
+
         </form>
         @can('admin-higher'){{-- 管理者に表示される --}}
         <div class="input-group-sm">
