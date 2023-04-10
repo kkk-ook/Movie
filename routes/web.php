@@ -57,7 +57,7 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
     //ユーザー一覧
     Route::get('/users', [App\Http\Controllers\UserController::class, 'users'])->name('users');
     Route::get('/userShow/{id}', [App\Http\Controllers\UserController::class, 'show'])->name('userShow');
-    Route::get('/userEdit/{id}', [App\Http\Controllers\UserController::class, 'userdit'])->name('userEdit');
+    Route::post('/userEdit/{id}', [App\Http\Controllers\UserController::class, 'userEdit'])->name('userEdit');
     Route::post('/userDelete/{id}', [App\Http\Controllers\UserController::class, 'userDelete'])->name('userDelete');
     Route::get('/userSearch', [App\Http\Controllers\UserController::class, 'userSearch'])->name('userSearch');
 

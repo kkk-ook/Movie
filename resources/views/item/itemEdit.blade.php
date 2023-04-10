@@ -8,6 +8,16 @@
 
 @section('content')
 
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <form action="{{ route('itemEdit',$item->id)}}" method="get">
     @csrf
 <!-- ログイン中の管理者かつ自分のID情報を表示する場合 または利用者が自分のID情報を表示する場合-->
@@ -18,18 +28,12 @@
                 <dd>
                     <input type="text" class="form-control border border-secondary" id="name" name="name" value="{{$item->name}}">
                 </dd>
-                @if ($errors->has('name'))
-                <p>{{$errors->first('name')}}</p>
-                @endif    
             </div>
             <div>
                 <dt>作品名(よみがな)</dt>
                 <dd>
                     <input type="text" class="form-control border border-secondary" id="kana" name="kana" value="{{$item->kana}}">
                 </dd>
-                @if ($errors->has('name'))
-                <p>{{$errors->first('kana')}}</p>
-                @endif  
             </div>
             <div class="form-group d-flex flex-column">
                 <dt for="status">ステータス</dt>
@@ -43,9 +47,6 @@
                         @endforeach
                     </select>
                 </dd>
-                @if ($errors->has('status'))
-                <p>{{$errors->first('status')}}</p>
-                @endif
             </div>
             <div class="form-group">
                 <dt for="type">ジャンル</dt>
@@ -59,18 +60,12 @@
                         @endforeach
                     </select>
                 </dd>
-                @if ($errors->has('type'))
-                <p>{{$errors->first('password')}}</p>
-                @endif
             </div>
             <div class="form-group">
                 <dt>あらすじ</dt>
                 <dd for="detail">
                     <textarea maxlength="500" name="detail" id="detail" class="form-control border border-secondary" rows="5">{{$item->detail}}</textarea>
                 </dd>
-                @if ($errors->has('confirm_password'))
-                    <p>{{ $errors->first('confirm_password') }}</p>
-                @endif
                 <input type="hidden" name="role" value="">
             </div>
         </dl>

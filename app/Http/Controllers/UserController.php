@@ -41,7 +41,7 @@ class UserController extends Controller
             $request->validate([
                 'name' => ['required'],
                 'email' => ['required'],
-                'password' => ['required,max:8'],
+                'password' => ['required','max:8'],
                 'confirm_password' => ['required', 'same:password'],
             ]);
         } else {
@@ -108,6 +108,13 @@ class UserController extends Controller
     }
     //編集
     public function profileEdit(Request $request) {
+        $request->validate([
+            'name' => ['required'],
+            'email' => ['required'],
+            'password' => ['required','max:8'],
+            'confirm_password' => ['required', 'same:password']
+    ]);
+
         //編集情報の保存
         $users = User::where('id', '=', $request->id)->first();
         $users->name = $request->name;
@@ -118,7 +125,7 @@ class UserController extends Controller
         $users->role = $request->role;
         $users->save();
 
-        return redirect('profile');
+        return redirect('users');
     }
 
     //削除

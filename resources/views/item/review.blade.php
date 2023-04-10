@@ -121,12 +121,9 @@
                                                 <p>{{$errors->first('stars')}}</p>
                                             @endif    
                                             <div class="text mt-3">
-                                                <h6>スコア</h6>
+                                                <h6>コメント</h6>
                                                 <textarea  maxlength="500" name="comment" id="comment" class="form-control border border-secondary" rows="5" placeholder="空欄でレビューすることも可能">{{ old('comment', $item->comment) }}</textarea>
-                                            </div>
-                                            @if ($errors->has('comment'))
-                                                <p>{{$errors->first('comment')}}</p>
-                                            @endif    
+                                            </div>  
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>

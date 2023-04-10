@@ -106,8 +106,8 @@ return [
     'prohibited_if' => 'The :attribute field is prohibited when :other is :value.',
     'prohibited_unless' => 'The :attribute field is prohibited unless :other is in :values.',
     'prohibits' => 'The :attribute field prohibits :other from being present.',
-    'regex' => 'The :attribute format is invalid.',
-    'required' => 'The :attribute field is required.',
+    'regex' => '":attribute" はひらがな・カタカナで入力してください。',
+    'required' => '":attribute" は必須入力です。',
     'required_array_keys' => 'The :attribute field must contain entries for: :values.',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
@@ -158,6 +158,13 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name' => '名前',
+        'kana' => 'よみがな',
+        'detail' => 'あらすじ',
+        'email' => 'メールアドレス',
+        'password' => 'パスワード',
+        'confirm_password' => '確認用パスワード'
+    ],
 
 ];

@@ -8,6 +8,15 @@
 
 @section('content')
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <form action="{{ route('userEdit',$user->id)}}" method="post">
     @csrf
 <!-- ログイン中の管理者かつ自分のID情報を表示する場合 または利用者が自分のID情報を表示する場合-->
@@ -19,36 +28,24 @@
                 <dd>
                     <input class="form-control" type="text" name="name" value="{{$user->name}}">
                 </dd>
-                @if ($errors->has('name'))
-                <p>{{$errors->first('name')}}</p>
-                @endif    
             </div>
             <div>
                 <dt>メールアドレス</dt>
                 <dd>
                     <input class="form-control" type="text" name="email" value="{{$user->email}}">
                 </dd>
-                @if ($errors->has('email'))
-                <p>{{$errors->first('email')}}</p>
-                @endif
             </div>
             <div>
                 <dt>パスワード<small>※8文字以上、必須入力</small></dt>
                 <dd>
                     <input class="form-control" type="password" name="password">
                 </dd>
-                @if ($errors->has('password'))
-                <p>{{$errors->first('password')}}</p>
-                @endif
             </div>
             <div>
                 <dt>パスワード確認</dt>
                 <dd>
                     <input class="form-control" type="password" name="confirm_password" >
                 </dd>
-                @if ($errors->has('confirm_password'))
-                    <p>{{ $errors->first('confirm_password') }}</p>
-                @endif
                 <input type="hidden" name="role" value= "{{$user->role}}">
             </div>
         </dl>

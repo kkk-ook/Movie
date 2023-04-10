@@ -10,7 +10,7 @@ table,tr,td{
 
 /*レビュー前のボタン*/
 .buttonChange{
-    background-color: #F8B400 !important;
+    background-color: #ffd700 !important;
     opacity: .6;
     filter: brightness(100%);
     transition: filter .3s, background-color .3s;
@@ -108,12 +108,10 @@ td{
     cursor: pointer;
     margin-left: 8px;
     transition: .2s;
-    z-index: 30;
 }
 .order-icon .material-icons.visible{
     color: #000;
 }
-
 
 .boxes {
     display: flex;
@@ -193,7 +191,7 @@ input[type="checkbox"]:checked + label:before {
 }
 .card{
     margin: 40px 0 40px 0;
-    z-index: 10;
+
 }
 
 
