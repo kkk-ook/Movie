@@ -16,9 +16,9 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
 
-    <div class="d-flex justify-content-between">
+    <div class="search-register">
         <form class="form-inline" action="{{ route('search') }}" method="get">
-            <div class="form-group d-flex mb-3">
+            <div class="form-group">
                 <!-- セレクトボックス -->
                 <select name="type" class="form-control bg-light" aria-label="Default select example">
                     <option value="" selected>ジャンルを選択</option>
@@ -30,17 +30,22 @@
                 <input type="text" name="keyword" class="form-control pr-5" placeholder="キーワードを入力">
                 <input type="submit" value="検索" class="btn btn-primary">
                 <!-- チェックボックス -->
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="order[]" id="inlineRadio1" value="option1">
-                        <label class="form-check-label" for="inlineRadio1">あいう順</label>
+                <div class="order">
+                    <div class="order-icon">
+                        <span class="material-icons" id="open">low_priority</span>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                        <label class="form-check-label" for="inlineRadio2">レビュー高い順</label>
+                    <div class="boxes">
+                        <div id="boxes-1">
+                            <input type="checkbox" id="box-1" name="orderKana[]">
+                            <label for="box-1">あいう順</label>
+                        </div>
+                        <div id="boxes-2">
+                            <input type="checkbox" id="box-2" name="orderReview[]">
+                            <label for="box-2">レビューが高い順</label>
+                        </div>
                     </div>
                 </div>
-
+            </div>
         </form>
         @can('admin-higher'){{-- 管理者に表示される --}}
         <div class="input-group-sm">

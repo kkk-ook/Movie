@@ -151,13 +151,18 @@ class ItemController extends Controller
             $query->where('name', 'LIKE', "%{$keyword}%")
             -> orWhere('detail', 'LIKE', "%{$keyword}%");
         }
-        //チェックボックス
-        $selectOrder = $request->input('order');
-        if(!empty($selectOrder)) {
+    //チェックボックス
+        //あいう順に並べる
+        $orderKana = $request->input('orderKana');
+        if(!empty($orderKana)) {
             $query->orderBy('kana', 'asc');
         }
-
-
+        //レビュー順に並べる
+        $query->leftJoin('item_reviews', 'items.id', '=', 'item_reviews.item_id')
+        ->select('items.*', ItemReview::raw('AVG(item_reviews.stars) as avg_stars'))
+        ->groupBy('items.id')
+        ->orderByDesc('avg_stars');
+        
         $items = $query->paginate(10);
         //次のページへのリンクに追加
         $items->appends($queryParams);

@@ -10,11 +10,14 @@
         }
     }
 
+    const open = document.getElementById('open');
+    const boxes1 = document.getElementById('boxes-1');
+    const boxes2 = document.getElementById('boxes-2');
 
-
-    document.addEventListener('data-stored', function (event) {
-    element.backgroundColor = '#F8B400';
-    element.style.opacity = '1';
+    open.addEventListener('click', () =>{
+        boxes1.classList.toggle('visible');
+        boxes2.classList.toggle('visible');
+        open.classList.toggle('visible');
     });
 
 }
