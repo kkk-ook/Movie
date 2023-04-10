@@ -121,7 +121,8 @@ class ItemController extends Controller
     public function itemDelete(Request $request){
         $item = Item::where('id' , '=' , $request->id)->first();
 
-            $item->delete();
+        $item->reviews()->delete();
+        $item->delete();
 
         return redirect('items');
     }

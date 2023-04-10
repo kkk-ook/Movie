@@ -101,7 +101,7 @@
                                 </td>
 
                                 @can('admin-higher'){{-- 管理者に表示される --}}
-                                    <td>{{ $item->created_at }}</td>
+                                    <td>{{ $item->created_at->format('Y.m.d') }}</td>
                                 @endcan
                                 <td>
                                     <a href="{{ route('detail', ['id'=>$item->id]) }}" class="btn btn-outline-secondary">
@@ -115,10 +115,14 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <form action="{{ route('itemDelete',$item->id) }}" method="POST">
+                                    <span class="material-icons js-delete">delete_outline</span>
+                                    <form action="{{ route('itemDelete',$item->id) }}" method="POST" class="edit-delete">
                                     @csrf
-                                        <button type="submit" class="btn btn-danger">削除</button>
+                                        <button type="submit" class="delete">
+                                            <span class="material-icons">done</span>
+                                        </button>
                                     </form>
+                                    <span class="material-icons edit-cancel">clear</span>
                                 </td>
                                 @endcan
                             </tr>

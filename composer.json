@@ -14,7 +14,8 @@
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "v3.3.0"
+        "laravel/ui": "v3.3.0",
+        "nesbot/carbon": "^2.66"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
