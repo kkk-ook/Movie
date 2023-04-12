@@ -12,12 +12,11 @@ class ItemReview extends Model
     // リレーションシップ
     public function user() {
 
-        return $this->belongsTo(App\Models\User::class, 'user_id', 'id')
-            ->select('id', 'name');
-
+        return $this->belongsTo(User::class);
     }
 
     public function item(){
-        return $this->belongsTo(App\Models\Item::class, 'item_id', 'id');
+        
+        return $this->belongsTo(Item::class);
     }
 }

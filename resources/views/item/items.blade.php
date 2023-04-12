@@ -49,7 +49,7 @@
         </form>
         @can('admin-higher'){{-- 管理者に表示される --}}
         <div class="input-group-sm">
-            <a href="{{ url('/add') }}" class="btn btn-secondary">商品登録</a>
+            <a href="{{ url('/add') }}" class="btn btn-secondary">作品登録</a>
         </div>
         @endcan
     </div>
@@ -99,19 +99,18 @@
                                         {{ $item->reviews->avg('stars') }}
                                     @endif
                                 </td>
-
                                 @can('admin-higher'){{-- 管理者に表示される --}}
-                                    <td>{{ $item->created_at->format('Y.m.d') }}</td>
+                                    <td>{{ $item->created_at }}</td>
                                 @endcan
                                 <td>
-                                    <a href="{{ route('detail', ['id'=>$item->id]) }}" class="btn btn-outline-secondary">
+                                    <a href="{{ route('detail', ['id'=>$item->id]) }}" class="detail">
                                         <span class="material-icons">description</span>
                                     </a>
                                 </td>
                                 @can('admin-higher'){{-- 管理者に表示される --}}
                                 <td>
-                                    <a href="{{ route('itemShow', ['id'=>$item->id]) }}" class="btn btn-primary">
-                                        編集
+                                    <a href="{{ route('itemShow', ['id'=>$item->id]) }}" class="edit">
+                                        <span class="material-icons">edit</span>
                                     </a>
                                 </td>
                                 <td>

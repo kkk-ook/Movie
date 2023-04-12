@@ -36,11 +36,11 @@ class HomeController extends Controller
 *****************************************/
     public function timeline(){
 
-        $query =  Item::with('reviews');
+        $reviews = ItemReview::with(['item','user'])->orderBy('updated_at', 'desc')->get();
+        // dd($reviews);
 
-        $items = $query->paginate(10);
 
-        return view('home',compact("items"));
+        return view('home',compact("reviews"));
     }
 }
 

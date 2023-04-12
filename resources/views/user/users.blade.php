@@ -33,7 +33,7 @@
                                     <td>{{ $user->id }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
-                                    <td>{{ $user->updated_at }}</td>
+                                    <td>{{ $user->created_at }}</td>
                                     <td><a href="{{ route('userShow', $user->id) }}" class="btn btn-primary">編集</a></td>
                                 </tr>
                             @endforeach

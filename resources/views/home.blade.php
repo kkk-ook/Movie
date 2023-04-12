@@ -15,67 +15,30 @@
     <!-- Google font Icon -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     
-@foreach  ($items as $item)
-    @foreach( $item->reviews as $user)
+@foreach ($reviews as $review)
     <div class="post">
         <div class="post-inner">
-            <h2>{{ $item->name }}</h2>
+            <div class="post-head">
+                <h2>{{ $review->user->name }} さんのレビュー</h2>
+                <p>{{ $review->updated_at->format('Y/m/d') }}</p>
+            </div>
             <div class="post-btn">
-                <!-- <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal{{$item->id}}">
-                    <span class="material-icons">remove_red_eye</span>
-                </button> -->
-                <a href="{{ route('detail', ['id'=>$item->id]) }}" class="btn btn-outline-secondary">
+                <a href="{{ route('detail', ['id'=>$review->item->id]) }}" class="btn btn-outline-secondary">
                     <span class="material-icons">description</span>
                 </a>
             </div>
         </div>
-        <div class="stars">
-            <span class="material-icons">star</span>
-            <p>{{ $user->stars }}</p>
+        <div class="post-body">
+            <h2>{{ $review->item->name }}</h2>
+            <div class="stars">
+                <span class="material-icons">star</span>
+                <p>{{ $review->stars }}</p>
+            </div>
+            <p>{!! nl2br(e($review->comment)) !!}</p>
         </div>
-        <p>{!! nl2br(e($user->comment)) !!}</p>
     </div>
 
-    <!-- モーダル -->
-    <div class="modal fade" id="modal{{$item->id}}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="modalLabel">レビュー</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="{{ route('review') }}" method="post">
-        @csrf
-        <input type="hidden" name="item_id" value="{{$item->id}}">
-        <input type="hidden" name="user_id" value="{{$user->id}}">
-        <div class="modal-body">
-            <div class="title h4">{{ $item->name }}</div>
-            <div class="score">
-                <h6>スコア</h6>
-                <input type="range" class="w-75 js-range" name="stars" step="0.1" min="0.1" max="5"  value="{{ old('stars', $item->r_stars) }}">
-                <span class="h4" id="value">{{ $item->stars }}</span>
-            </div>
-            @if ($errors->has('stars'))
-                <p>{{$errors->first('stars')}}</p>
-            @endif    
-            <div class="text mt-3">
-                <h6>スコア</h6>
-                <textarea  maxlength="500" name="comment" id="comment" class="form-control border border-secondary" rows="5" placeholder="空欄でレビューすることも可能">{{ old('comment', $item->comment) }}</textarea>
-            </div>
-            @if ($errors->has('comment'))
-                <p>{{$errors->first('comment')}}</p>
-            @endif    
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
-                <button type="submit" class="btn btn-primary">投稿</button>
-            </div>
-        </div>
-    </form>
-    </div>
-</div>
 
-        @endforeach
 @endforeach
 @stop
 

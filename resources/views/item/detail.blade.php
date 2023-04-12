@@ -23,11 +23,11 @@
                                 @can('admin-higher'){{-- 管理者に表示される --}}
                                 <th>ID</th>
                                 @endcan
-                                <th>名前</th>
+                                <th>作品名</th>
                                 @can('admin-higher'){{-- 管理者に表示される --}}
                                 <th>ステータス</th>
                                 @endcan
-                                <th>種別</th>
+                                <th>ジャンル</th>
                                 <th>平均レビュー</th>
                                 <th>更新日時</th>
                             </tr>
@@ -48,7 +48,7 @@
                                             {{ $item->reviews->avg('stars') }}
                                         @endif
                                     </td>
-                                    <td>{{ $item->created_at }}</td>
+                                    <td>{{ $item->created_at->format('Y.m.d') }}</td>
                                 </tr>
                         </tbody>
                     </table>

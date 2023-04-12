@@ -40,8 +40,11 @@ table,tr,td{
 .post:hover{
     transform: scale(1.01 , 1.01);
     box-shadow: 5px 5px 5px 0 #cccccc;
-
 }
+.post p{
+    margin-bottom: 0;
+}
+
 .post-inner{
     display: flex;
     justify-content: space-between;
@@ -49,20 +52,24 @@ table,tr,td{
     padding-bottom: 20px;
     margin-bottom: 10px;
 }
-.post-inner h2{
-    font-size: 1.25rem;
+.post-head h2{
+    font-size: 1.3rem;
     font-weight: bold;
     margin-bottom: 0;
-    line-height: 65px;
 }
-.post-btn{
-    line-height: 65px;
+.post-head p{
+    color: #99a3ad;
 }
+
 .post-btn span{
     position: relative;
     top: 3px;
 }
-.post .stars{
+.post-body h2{
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+.post-body .stars{
     font-size: 1.5rem;
     display: flex;
     align-items: center;
@@ -72,9 +79,6 @@ table,tr,td{
     font-size: 2rem;
     padding-right: 5px;
     color: 	#F8B400;
-}
-.post p{
-    margin-bottom: 0;
 }
 
 /*作品一覧*/
@@ -193,7 +197,16 @@ input[type="checkbox"]:checked + label:before {
     margin: 40px 0 40px 0;
 
 }
-
+.detail ,
+.edit,
+.edit-delete{
+    color: #000;
+}
+.detail:hover ,
+.edit:hover ,
+.edit-delete:hover{
+    color: #696969;
+}
 
 .delete{
     background-color: transparent;

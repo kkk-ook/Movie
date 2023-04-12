@@ -49,7 +49,7 @@
         </form>
         @can('admin-higher'){{-- 管理者に表示される --}}
         <div class="input-group-sm">
-            <a href="{{ url('/add') }}" class="btn btn-secondary">商品登録</a>
+            <a href="{{ url('/add') }}" class="btn btn-secondary">作品登録</a>
         </div>
         @endcan
     </div>

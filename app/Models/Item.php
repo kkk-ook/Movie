@@ -104,7 +104,7 @@ class Item extends Model
     */
     public function reviews()
     {
-        return $this->hasMany(ItemReview::class);
+        return $this->hasMany(ItemReview::class)->orderBy('updated_at','desc');
     }
 
 
