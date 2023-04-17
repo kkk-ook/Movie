@@ -17,6 +17,7 @@ class ItemsTableSeeder extends Seeder
     
             $item = new \App\Models\Item();
             $item -> name = 'テスト- '. $i;
+            $item -> name = 'あああ';
             $item -> status = 'active';
             $item ->  type= $i;
             $item ->  detail= 'テストテストテスト'.$i;
