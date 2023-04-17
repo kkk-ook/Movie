@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-
+use App\Models\Genre;
 class ItemsTableSeeder extends Seeder
 {
     /**
@@ -17,9 +17,15 @@ class ItemsTableSeeder extends Seeder
     
             $item = new \App\Models\Item();
             $item -> name = 'テスト- '. $i;
+            $item->kana = 'テスト- '. $i;
             $item ->  type= $i;
             $item -> save();
-    
+            
+            $genres = Genre::inRandomOrder()->take(2)->pluck('id');
+            $item->genres()->attach(
+                // アイテムとジャンルを紐付ける
+                $genres
+            );
         }
     }
 }

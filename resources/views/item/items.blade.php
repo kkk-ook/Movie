@@ -22,8 +22,8 @@
                 <!-- セレクトボックス -->
                 <select name="type" class="form-control bg-light" aria-label="Default select example">
                     <option value="" selected>ジャンルを選択</option>
-                    @foreach(\App\Models\Item::TYPE as $key => $val)
-                    <option value="{{$key}}">{{ $val['label'] }}</option>
+                    @foreach($genres as $genre)
+                        <option value="{{$genre->name}}">{{$genre->name}}</option>
                     @endforeach
                 </select>
                 <!-- キーワード検索 -->
@@ -92,7 +92,13 @@
                                 @can('admin-higher'){{-- 管理者に表示される --}}
                                     <td><span class="p-1 text-white  {{ $item->status_class }}">{{$item->status_label}}</span></td>
                                 @endcan
-                                <td>{{$item->getTypeLabelAttribute()}}</td>
+                                <td>
+                                    @if($item->genres)
+                                        @foreach($item->genres as $genre )
+                                            {{$genre->name}}
+                                        @endforeach
+                                    @endif
+                                </td>
                                 <td>
                                     @if($item->reviews->isNotEmpty())
                                         <span class="material-icons review-stars">star</span>

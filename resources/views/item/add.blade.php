@@ -24,8 +24,12 @@
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="name">名前</label>
+                        <label for="name">作品名</label>
                         <input type="text" class="form-control border border-secondary" id="name" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="kana">作品名(よみがな)</label>
+                        <input type="text" class="form-control border border-secondary" id="kana" name="kana">
                     </div>
                     <div class="form-group d-flex flex-column">
                         <label for="status">ステータス</label>
@@ -40,12 +44,10 @@
                     </div>
                     <div class="form-group">
                         <label for="type">ジャンル</label>
-                        <select class="form-control  border-secondary" id="type" name="type">
+                        <select class="form-control  border-secondary" id="genre" name="genre">
                             <option value="" selected disabled></option>
-                            @foreach(\App\Models\Item::TYPE as $key => $val)
-                                <option value="{{ $key }}">
-                                {{ $val['label'] }}
-                                </option>
+                            @foreach($genres as $genre)
+                                <option value="{{$genre->name}}">{{$genre->name}}</option>
                             @endforeach
                         </select>
                     </div>

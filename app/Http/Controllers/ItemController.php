@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\ItemReview;
+use App\Models\Genre;
 use Illuminate\Validation\Rule;
 
 class ItemController extends Controller
@@ -33,15 +34,19 @@ class ItemController extends Controller
             $query->where('status', '=', 'active');
         }
         $items = $query->paginate(10);
+
+        $genres = Genre::all();
         
-        return view('item.items',compact("items"));
+        return view('item.items',compact("items","genres"));
     }
 /**************************************
- *商品登録画面の表示
+ *作品登録画面の表示
 ****************************************/
     public function itemAdd()
     {
-        return view('item.add');
+        $genres = Genre::all();
+
+        return view('item.add',compact('genres'));
     }
 
     /*商品登録 */
@@ -49,28 +54,38 @@ class ItemController extends Controller
 
         $this->validate($request, [
             'name' => 'required|max:100',
+            'kana' => 'required|regex:/^[ぁ-んァ-ン,  ]+$/u',
             'status'=>'required',
-            'type' => 'required|integer',
+            'genre' => 'required',
             'detail' => 'required|max:500',
         ],
         [
-            'name.required' => '名前欄が入力されていません。',
+            'name.required' => '作品名が入力されていません。',
+            'kana.required' => 'よみがなが入力されていません。',
             'status.required' => 'ステータスが選択されていません。',
-            'type.required'  => '種別欄が選択されていません。',
+            'genre.required'  => 'ジャンルが選択されていません。',
             'detail.required'  => '説明欄が入力されていません。',
         ]);
 
-        Item::create([
+        $genre = Genre::where('name', $request->genre)->first();
+        if (!$genre) {
+            $genre = Genre::create([
+                'name' => $request->genre
+            ]);
+        }
+        $item=Item::create([
             'name' => $request->name,
+            'kana' => $request->kana,
             'status' => $request->status,
-            'type' => $request->type,
+            'genre_id' => $request->genre,
             'detail' => $request->detail
         ]);
-    
+
+        $item->genres()->attach($genre->id);
+        
         //商品一覧画面に戻る  
         return redirect('items');
     }
-
 
 
 /*************************************
@@ -89,8 +104,10 @@ class ItemController extends Controller
 *****************************************/
     public function show(Request $request, $id) {
         $items = Item::where('id','=',$request->id)->first();
-        
-        return view('item.itemEdit')->with([
+
+        $genres = Genre::all();
+
+        return view('item.itemEdit',compact("genres"))->with([
             'item' => $items,
         ]);
     }
@@ -98,20 +115,26 @@ class ItemController extends Controller
 
     /*編集*/
     public function itemEdit(Request $request) {
-            $request->validate([
-                'name' => ['required'],
-                'kana' => ['required', 'regex:/^[ぁ-んァ-ン]+$/u'],
-                'status' => ['required'],
-                'type' => ['required'],
-                'detail' => ['required'],
+        $request->validate([
+            'name' => 'required',
+            'kana' => 'required|regex:/^[ぁ-んァ-ン,  ]+$/u',
+            'status' => 'required',
+            'genre' => 'required',
+            'detail' => 'required',
+        ]);
+
+        $genre = Genre::where('name', $request->genre)->first();
+        if (!$genre) {
+            $genre = Genre::create([
+                'name'  => $request->genre
             ]);
-    
+        }
         //編集情報の保存
         $items = Item::where('id', '=', $request->id)->first();
         $items->name = $request->name;
         $items->kana = $request->kana;
-        $items->status =$request->status;
-        $items->type =$request->type;
+        $items->status = $request->status;
+        $items->genre_id = $genre->id;
         $items->detail = $request->detail;
         $items->save();
 
@@ -193,7 +216,9 @@ public function reviewShow(){
     }
     $items = $query->paginate(10);
 
-    return view('item.review',compact("items","user"));
+    $genres = Genre::all();
+
+    return view('item.review',compact('items','user','genres'));
 }
 
 

@@ -53,9 +53,9 @@
                 <dd>
                     <select class="form-control  border-secondary" id="type" name="type">
                         <option value="" disabled></option>
-                        @foreach(\App\Models\Item::TYPE as $key => $val)
-                        <option value="{{ $key }}" {{ $key == old('type',$item->type) ? 'selected' : '' }}>
-                            {{ $val['label'] }}
+                        @foreach($genres as $genre)
+                            <option value="{{ $genre->name }}" {{ $genre == old('genre',$genre->name) ? 'selected' : '' }}>
+                                {{ $genre->name }}
                             </option>
                         @endforeach
                     </select>

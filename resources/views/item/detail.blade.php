@@ -41,7 +41,13 @@
                                     @can('admin-higher'){{-- 管理者に表示される --}}
                                     <td><span class="p-1 text-white  {{ $item->status_class }}">{{$item->status_label}}</span></td>
                                     @endcan
-                                    <td>{{$item->getTypeLabelAttribute()}}</td>
+                                    <td>
+                                        @if($item->genres)
+                                            @foreach($item->genres as $genre )
+                                                {{$genre->name}}
+                                            @endforeach
+                                        @endif
+                                    </td>
                                     <td>
                                         @if($item->reviews->isNotEmpty())
                                             <span class="material-icons review-stars">star</span>
