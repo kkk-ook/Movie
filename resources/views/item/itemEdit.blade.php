@@ -82,7 +82,7 @@
     </div>
 </form>
 
-    <a href="/items" class="btn btn-outline-info" role="button">ユーザー管理に戻る </a>
+    <!-- <a href="/items" class="btn btn-outline-info" role="button">作品一覧戻る </a> -->
 
     </div>   
 

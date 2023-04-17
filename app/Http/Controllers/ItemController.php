@@ -44,24 +44,27 @@ class ItemController extends Controller
         return view('item.add');
     }
 
-    /*商品登録 */
+    /*作品登録 */
     public function itemCreate(Request $request) {
 
         $this->validate($request, [
             'name' => 'required|max:100',
+            'kana' => 'required', 'regex:/^[ぁ-んァ-ン]+$/u',
             'status'=>'required',
             'type' => 'required|integer',
             'detail' => 'required|max:500',
         ],
         [
-            'name.required' => '名前欄が入力されていません。',
-            'status.required' => 'ステータスが選択されていません。',
-            'type.required'  => '種別欄が選択されていません。',
-            'detail.required'  => '説明欄が入力されていません。',
+            'name.required' => '"作品名"が入力されていません。',
+            'kana.required' => '"よみがな"が入力されていません。',
+            'status.required' => '"ステータス"が選択されていません。',
+            'type.required'  => '"ジャンル"が選択されていません。',
+            'detail.required'  => '"あらすじ"が入力されていません。',
         ]);
 
         Item::create([
             'name' => $request->name,
+            'kana' => $request->kana,
             'status' => $request->status,
             'type' => $request->type,
             'detail' => $request->detail
@@ -99,11 +102,11 @@ class ItemController extends Controller
     /*編集*/
     public function itemEdit(Request $request) {
             $request->validate([
-                'name' => ['required'],
-                'kana' => ['required', 'regex:/^[ぁ-んァ-ン]+$/u'],
-                'status' => ['required'],
-                'type' => ['required'],
-                'detail' => ['required'],
+                'name' => 'required',
+                'kana' => 'required', 'regex:/^[ぁ-んァ-ン]+$/u',
+                'status' => 'required',
+                'type' => 'required',
+                'detail' => 'required',
             ]);
     
         //編集情報の保存
