@@ -65,7 +65,7 @@
             </a>
         </div>
 
-        <a href="/users" class="btn btn-outline-info" role="button">ユーザー管理に戻る </a>
+        <!-- <a href="/users" class="btn btn-outline-info" role="button">ユーザー管理に戻る </a> -->
         
         </form>
     </div>   

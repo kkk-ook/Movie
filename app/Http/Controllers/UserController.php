@@ -125,7 +125,7 @@ class UserController extends Controller
         $users->role = $request->role;
         $users->save();
 
-        return redirect('users');
+        return redirect('profile');
     }
 
     //削除
