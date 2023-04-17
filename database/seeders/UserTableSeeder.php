@@ -17,6 +17,7 @@ class UserTableSeeder extends Seeder
     
             $item = new \App\Models\User();
             $item -> name = '太朗- '. $i;
+            $item -> email = 'taro '. $i.'@taro';
             $item -> save();
     
         }
