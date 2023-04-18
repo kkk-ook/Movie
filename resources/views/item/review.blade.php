@@ -67,6 +67,7 @@
                                 <th>平均レビュー</th>
                                 <th>マイレビュー</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -89,11 +90,13 @@
                                     {{ $myreview->stars }}
                                 @endif
                                 </td>
-                                <td class="d-flex justify-content-around">
+                                <td>
                                     <button type="button" class="btn btn-outline-black buttonChange @if($myreview) changeColor @endif" data-bs-toggle="modal" data-bs-target="#modal{{$item->id}}">
                                         <span class="material-icons">remove_red_eye</span>
                                     </button>
-                                    <a href="{{ route('detail', ['id'=>$item->id]) }}" class="btn btn-outline-secondary">
+                                </td>
+                                <td>
+                                    <a href="{{ route('detail', ['id'=>$item->id]) }}" class="detail">
                                         <span class="material-icons">description</span>
                                     </a>
                                 </td>

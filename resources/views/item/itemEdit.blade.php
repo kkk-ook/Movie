@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', '商品編集')
+@section('title', '作品編集')
 
 @section('content_header')
-    <h1>商品編集</h1>
+    <h1>作品編集</h1>
 @stop
 
 @section('content')
@@ -82,7 +82,7 @@
     </div>
 </form>
 
-    <!-- <a href="/items" class="btn btn-outline-info" role="button">作品一覧戻る </a> -->
+    <a href="/items" class="btn btn-outline-info" role="button">作品一覧戻る </a>
 
     </div>   
 

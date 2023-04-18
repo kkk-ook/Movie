@@ -59,14 +59,15 @@
             <button type="submit" class="btn btn-primary">編集する</button>
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <a href="/userDelete/{{$user->id}}"> 
                 <button type="submit" class="btn btn-danger">削除する</button>
             </a>
-        </div>
-
-        <!-- <a href="/users" class="btn btn-outline-info" role="button">ユーザー管理に戻る </a> -->
-        
+        </div> -->
+        @can('admin-higher'){{-- 管理者に表示される --}}
+        <a href="/users" class="btn btn-outline-info" role="button">ユーザー管理に戻る </a>
+        @endcan
+        <a href="/home" class="btn btn-outline-info" role="button">ホームに戻る </a>
         </form>
     </div>   
 
