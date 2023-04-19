@@ -51,10 +51,10 @@
             <div class="form-group">
                 <dt for="type">ジャンル</dt>
                 <dd>
-                    <select class="form-control  border-secondary" id="type" name="type">
+                    <select class="form-control  border-secondary" id="genre" name="genre_id[]" multiple>
                         <option value="" disabled></option>
                         @foreach($genres as $genre)
-                            <option value="{{ $genre->name }}" {{ $genre == old('genre',$genre->name) ? 'selected' : '' }}>
+                            <option value="{{ $genre->id }}" {{ $genre == old('genre',$genre->name) ? 'selected' : '' }}>
                                 {{ $genre->name }}
                             </option>
                         @endforeach

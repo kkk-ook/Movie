@@ -121,12 +121,9 @@
                                             <div class="title h4">{{ $item->name }}</div>
                                             <div class="score">
                                                 <h6>スコア</h6>
-                                                <input type="range" class="w-75 js-range" name="stars" step="0.1" min="0.1" max="5"  value="{{ old('stars', $item->r_stars) }}">
-                                                <span class="h4" id="value">{{ $item->stars }}</span>
+                                                <input type="range" class="w-75 js-range" name="stars" step="0.1" min="0.1" max="5" value="2.5">
+                                                <span class="h4" id="value">2.5</span>
                                             </div>
-                                            @if ($errors->has('stars'))
-                                                <p>{{$errors->first('stars')}}</p>
-                                            @endif    
                                             <div class="text mt-3">
                                                 <h6>コメント</h6>
                                                 <textarea  maxlength="500" name="comment" id="comment" class="form-control border border-secondary" rows="5" placeholder="空欄でレビューすることも可能">{{ old('comment', $item->comment) }}</textarea>

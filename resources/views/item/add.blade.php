@@ -44,10 +44,10 @@
                     </div>
                     <div class="form-group">
                         <label for="type">ジャンル</label>
-                        <select class="form-control  border-secondary" id="genre" name="genre">
+                        <select class="form-control  border-secondary" id="genre" name="genre_id[]" multiple>
                             <option value="" selected disabled></option>
                             @foreach($genres as $genre)
-                                <option value="{{$genre->name}}">{{$genre->name}}</option>
+                                <option value="{{$genre->id}}">{{$genre->name}}</option>
                             @endforeach
                         </select>
                     </div>

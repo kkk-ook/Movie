@@ -56,32 +56,25 @@ class ItemController extends Controller
             'name' => 'required|max:100',
             'kana' => 'required|regex:/^[ぁ-んァ-ンー]+$/u',
             'status'=>'required',
-            'genre' => 'required',
+            'genre_id' => 'required',
             'detail' => 'required|max:500',
         ],
         [
             'name.required' => '作品名が入力されていません。',
             'kana.required' => 'よみがなが入力されていません。',
             'status.required' => 'ステータスが選択されていません。',
-            'genre.required'  => 'ジャンルが選択されていません。',
+            'genre_id.required'  => 'ジャンルが選択されていません。',
             'detail.required'  => '説明欄が入力されていません。',
         ]);
 
-        $genre = Genre::where('name', $request->genre)->first();
-        if (!$genre) {
-            $genre = Genre::create([
-                'name' => $request->genre
-            ]);
-        }
         $item=Item::create([
             'name' => $request->name,
             'kana' => $request->kana,
             'status' => $request->status,
-            'genre_id' => $request->genre,
             'detail' => $request->detail
         ]);
 
-        $item->genres()->attach($genre->id);
+        $item->genres()->attach($request->genre_id);
         
         //商品一覧画面に戻る  
         return redirect('items');
@@ -119,23 +112,25 @@ class ItemController extends Controller
             'name' => 'required',
             'kana' => 'required|regex:/^[ぁ-んァ-ンー]+$/u',
             'status' => 'required',
-            'genre' => 'required',
+            'genre_id' => 'required',
             'detail' => 'required',
+        ],
+        [
+            'name.required' => '作品名が入力されていません。',
+            'kana.required' => 'よみがなが入力されていません。',
+            'status.required' => 'ステータスが選択されていません。',
+            'genre_id.required'  => 'ジャンルが選択されていません。',
+            'detail.required'  => '説明欄が入力されていません。',
         ]);
 
-        $genre = Genre::where('name', $request->genre)->first();
-        if (!$genre) {
-            $genre = Genre::create([
-                'name'  => $request->genre
-            ]);
-        }
         //編集情報の保存
         $items = Item::where('id', '=', $request->id)->first();
         $items->name = $request->name;
         $items->kana = $request->kana;
         $items->status = $request->status;
-        $items->genre_id = $genre->id;
         $items->detail = $request->detail;
+        $items->genres()->detach();
+        $items->genres()->attach($request->genre_id);
         $items->save();
 
         return redirect('items');
@@ -153,23 +148,26 @@ class ItemController extends Controller
 /* 一覧画面検索 */
     public function search(Request $request){
 
+        $genres = Genre::all();
         $user = Auth::user();
         $query = Item::query();
         if($user->role == 1){
         //ユーザーならfalse
         } else { 
-            $query->where('status', '=', 'active');
+            $query->where('status', 'active');
         }
 
         // 現在のリクエストに含まれるクエリ文字列を取得
         $queryParams = $request->query();
 
-        //セレクトボックス
-        $selectType = $request->input('type');
-        if(!empty($selectType)) {
-            $query->where('type', '=', "$selectType");
+        //ジャンル
+        $selectGenre = $request->input('genre');
+        if(!empty($selectGenre)) {
+            $query->whereHas('genres', function ($q) use ($selectGenre) {
+                $q->where('name', '=', $selectGenre);
+            });
         }
-        //検索欄
+        //キーワード検索
         $keyword = $request->input('keyword');
         if(!empty($keyword)) {
             $query->where('name', 'LIKE', "%{$keyword}%")
@@ -191,7 +189,7 @@ class ItemController extends Controller
         //次のページへのリンクに追加
         $items->appends($queryParams);
 
-        return view('item.items', compact('items'));
+        return view('item.items', compact('items','genres'));
 
     }
 
@@ -199,7 +197,7 @@ class ItemController extends Controller
     public function pagi()
     {
         $items = Item::paginate(5);
-        return view('item.items', compact('items'));
+        return view('item.items', compact('items','genres'));
     }
 
 
@@ -212,7 +210,7 @@ public function reviewShow(){
     $query =  Item::with('reviews');
         //管理者ならtrue
     if($user->role !== 1){
-        $query->where("status","active");
+        $query->where('status','active');
     }
     $items = $query->paginate(10);
 
