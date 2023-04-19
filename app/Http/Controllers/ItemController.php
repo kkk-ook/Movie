@@ -54,7 +54,7 @@ class ItemController extends Controller
 
         $this->validate($request, [
             'name' => 'required|max:100',
-            'kana' => 'required|regex:/^[ぁ-んァ-ン,  ]+$/u',
+            'kana' => 'required|regex:/^[ぁ-んァ-ンー]+$/u',
             'status'=>'required',
             'genre' => 'required',
             'detail' => 'required|max:500',
@@ -117,7 +117,7 @@ class ItemController extends Controller
     public function itemEdit(Request $request) {
         $request->validate([
             'name' => 'required',
-            'kana' => 'required|regex:/^[ぁ-んァ-ン,  ]+$/u',
+            'kana' => 'required|regex:/^[ぁ-んァ-ンー]+$/u',
             'status' => 'required',
             'genre' => 'required',
             'detail' => 'required',

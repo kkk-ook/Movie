@@ -23,6 +23,8 @@ class UserController extends Controller
         
         }
 
+        $users = $users->paginate(10);
+
         return view('user.users', compact('users'));
     }
 
@@ -92,7 +94,7 @@ class UserController extends Controller
             -> orWhere('email', 'LIKE', "%{$keyword}%");
         }
 
-        $users = $query->get();
+        $users = $query->paginate(10);
 
         return view('user.users', compact('users', 'keyword'));
 

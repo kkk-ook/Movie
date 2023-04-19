@@ -64,6 +64,9 @@
                     <p>{!! nl2br(e($item->detail)) !!}</p>
                 </div>
             </div>
+            <div>
+                <a href="/items" class="btn btn-outline-info" role="button">作品一覧戻る </a>
+            </div>
         </div>
     </div>
 @stop

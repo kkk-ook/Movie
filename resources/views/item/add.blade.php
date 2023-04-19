@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', '商品登録')
+@section('title', '作品登録')
 
 @section('content_header')
-    <h1>商品登録</h1>
+    <h1>作品登録</h1>
 @stop
 
 @section('content')
@@ -53,13 +53,14 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="detail">説明</label>
+                        <label for="detail">あらすじ</label>
                         <textarea maxlength="500" name="detail" id="detail" class="form-control border border-secondary" rows="5"></textarea>
                     </div>
                 </div>
 
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">登録</button>
+                    <a href="/items" class="btn btn-outline-info" role="button">作品一覧に戻る </a>
                 </div>
             </form>
         </div>
