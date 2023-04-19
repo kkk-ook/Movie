@@ -146,7 +146,7 @@ class ItemController extends Controller
     }
     
 /* 一覧画面検索 */
-    public function search(Request $request){
+    public function itemSearch(Request $request){
 
         $genres = Genre::all();
         $user = Auth::user();
@@ -161,11 +161,14 @@ class ItemController extends Controller
         $queryParams = $request->query();
 
         //ジャンル
-        $selectGenre = $request->input('genre');
-        if(!empty($selectGenre)) {
-            $query->whereHas('genres', function ($q) use ($selectGenre) {
-                $q->where('name', '=', $selectGenre);
-            });
+        $selectGenres = $request->input('genre');
+        
+        if(!empty($selectGenres)) {
+            foreach($selectGenres as $genre){
+                $query->whereHas('genres', function ($q) use ($genre) {
+                    $q->where('name', $genre);
+                });
+            }
         }
         //キーワード検索
         $keyword = $request->input('keyword');
@@ -219,7 +222,7 @@ public function reviewShow(){
     return view('item.review',compact('items','user','genres'));
 }
 
-
+/*レビュー投稿機能*/
 public function review(Request $request) {
 
         // バリデーション
@@ -247,5 +250,57 @@ public function review(Request $request) {
         return redirect('/review');
 
     }
+
+/*検索*/
+    public function reviewSearch(Request $request){
+
+        $genres = Genre::all();
+        $user = Auth::user();
+        $query = Item::query();
+        if($user->role == 1){
+        //ユーザーならfalse
+        } else { 
+            $query->where('status', 'active');
+        }
+
+        // 現在のリクエストに含まれるクエリ文字列を取得
+        $queryParams = $request->query();
+
+        //ジャンル
+        $selectGenres = $request->input('genre');
+        
+        if(!empty($selectGenres)) {
+            foreach($selectGenres as $genre){
+                $query->whereHas('genres', function ($q) use ($genre) {
+                    $q->where('name', $genre);
+                });
+            }
+        }
+        //キーワード検索
+        $keyword = $request->input('keyword');
+        if(!empty($keyword)) {
+            $query->where('name', 'LIKE', "%{$keyword}%")
+            -> orWhere('detail', 'LIKE', "%{$keyword}%");
+        }
+    //チェックボックス
+        //あいう順に並べる
+        $orderKana = $request->input('orderKana');
+        if(!empty($orderKana)) {
+            $query->orderBy('kana', 'asc');
+        }
+        //レビュー順に並べる
+        $query->leftJoin('item_reviews', 'items.id', '=', 'item_reviews.item_id')
+        ->select('items.*', ItemReview::raw('AVG(item_reviews.stars) as avg_stars'))
+        ->groupBy('items.id')
+        ->orderByDesc('avg_stars');
+        
+        $items = $query->paginate(10);
+        //次のページへのリンクに追加
+        $items->appends($queryParams);
+
+        return view('item.review', compact('items','genres','user'));
+
+    }
+
 
 }

@@ -71,18 +71,7 @@ class Item extends Model
         return self::STATUS[$status]['class'];
     }
     
-    // public function getTypeLabelAttribute()
-    // {
-    //     // 状態値
-    //     $type = $this->attributes['type'];
 
-    //     // 定義されていなければ空を返す
-    //     if (!isset(self::TYPE[$type])) {
-    //         return '';
-    //     }
-
-    //     return self::TYPE[$type]['label'];
-    // }
 
 
     /*

@@ -43,7 +43,8 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
     Route::post('/profileEdit', [App\Http\Controllers\UserController::class, 'profileEdit'])->name('profileEdit');
     Route::get('/profileDelete', [App\Http\Controllers\UserController::class, 'profileDelete'])->name('profileDelete');
 
-    Route::get('/search', [App\Http\Controllers\ItemController::class, 'search'])->name('search');
+    Route::get('/itemSearch', [App\Http\Controllers\ItemController::class, 'itemSearch'])->name('itemSearch');
+    Route::get('/reviewSearch', [App\Http\Controllers\ItemController::class, 'reviewSearch'])->name('reviewSearch');
     Route::post('/search', [App\Http\Controllers\ItemController::class, 'type'])->name('type');
 
     //レビュー

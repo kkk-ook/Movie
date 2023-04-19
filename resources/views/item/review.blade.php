@@ -17,10 +17,10 @@
 
 <!-- 検索欄 -->
     <div class="d-flex justify-content-between">
-        <form class="form-inline" action="{{ route('search') }}" method="get">
+        <form class="form-inline" action="{{ route('reviewSearch') }}" method="get">
             <div class="form-group d-flex mb-3">
                 <!-- セレクトボックス -->
-                <select name="type" class="form-control bg-light" aria-label="Default select example">
+                <select name="genre[]" class="form-control bg-light" aria-label="Default select example" multiple>
                     <option value="" selected>ジャンルを選択</option>
                     @foreach($genres as $genre)
                         <option value="{{$genre->name}}">{{$genre->name}}</option>

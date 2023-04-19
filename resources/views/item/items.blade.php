@@ -17,10 +17,10 @@
 
 
     <div class="search-register">
-        <form class="form-inline" action="{{ route('search') }}" method="get">
+        <form class="form-inline" action="{{ route('itemSearch') }}" method="get">
             <div class="form-group">
                 <!-- セレクトボックス -->
-                <select name="genre" class="form-control bg-light" aria-label="Default select example">
+                <select name="genre[]" class="form-control bg-light" aria-label="Default select example" multiple>
                     <option value="" selected>ジャンルを選択</option>
                     @foreach($genres as $genre)
                         <option value="{{$genre->name}}">{{$genre->name}}</option>

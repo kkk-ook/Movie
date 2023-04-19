@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', '商品編集')
+@section('title', '作品編集')
 
 @section('content_header')
-    <h1>商品編集</h1>
+    <h1>作品編集</h1>
 @stop
 
 @section('content')
@@ -52,7 +52,6 @@
                 <dt for="type">ジャンル</dt>
                 <dd>
                     <select class="form-control  border-secondary" id="genre" name="genre_id[]" multiple>
-                        <option value="" disabled></option>
                         @foreach($genres as $genre)
                             <option value="{{ $genre->id }}" {{ $genre == old('genre',$genre->name) ? 'selected' : '' }}>
                                 {{ $genre->name }}
