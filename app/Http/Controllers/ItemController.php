@@ -162,8 +162,7 @@ class ItemController extends Controller
 
         //ジャンル
         $selectGenres = $request->input('genre');
-        
-        if(!empty($selectGenres)) {
+        if($selectGenres[0]!=null) {
             foreach($selectGenres as $genre){
                 $query->whereHas('genres', function ($q) use ($genre) {
                     $q->where('name', $genre);
@@ -269,7 +268,7 @@ public function review(Request $request) {
         //ジャンル
         $selectGenres = $request->input('genre');
         
-        if(!empty($selectGenres)) {
+        if($selectGenres[0]!=null) {
             foreach($selectGenres as $genre){
                 $query->whereHas('genres', function ($q) use ($genre) {
                     $q->where('name', $genre);
