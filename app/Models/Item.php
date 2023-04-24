@@ -18,7 +18,6 @@ class Item extends Model
         'name',
         'kana',
         'status',
-        'type',
         'detail',
     ];
 
