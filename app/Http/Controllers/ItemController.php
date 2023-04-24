@@ -8,6 +8,7 @@ use App\Models\Item;
 use App\Models\ItemReview;
 use App\Models\Genre;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Http;
 
 class ItemController extends Controller
 {
@@ -64,7 +65,7 @@ class ItemController extends Controller
             'kana.required' => 'よみがなが入力されていません。',
             'status.required' => 'ステータスが選択されていません。',
             'genre_id.required'  => 'ジャンルが選択されていません。',
-            'detail.required'  => '説明欄が入力されていません。',
+            'detail.required'  => 'あらすじが入力されていません。',
         ]);
 
         $item=Item::create([
@@ -120,7 +121,7 @@ class ItemController extends Controller
             'kana.required' => 'よみがなが入力されていません。',
             'status.required' => 'ステータスが選択されていません。',
             'genre_id.required'  => 'ジャンルが選択されていません。',
-            'detail.required'  => '説明欄が入力されていません。',
+            'detail.required'  => 'あらすじが入力されていません。',
         ]);
 
         //編集情報の保存
@@ -302,4 +303,28 @@ public function review(Request $request) {
     }
 
 
+    public function getMovie (){
+        //TMDbのAPI
+        $url = "https://api.themoviedb.org/3/discover/movie?api_key=07aa94898a090213deeb2419143516cf&language=ja-JP&region=US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_original_language=en&with_watch_monetization_types=flatrate&language=ja-JP";
+        $response = Http::get($url);
+
+        $movies = $response['results'];
+        $titles = [];
+        $details = [];
+    
+        foreach ($movies as $movie) {
+            $titles[] = $movie['title'];
+            $details[] = $movie['overview'];
+        }
+    
+        
+        return view('test', compact('titles','details'));
+        }
+
+        public function test (){
+        $url = "https://api.themoviedb.org/3/discover/movie?api_key=07aa94898a090213deeb2419143516cf&language=ja-JP&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate&language=ja-JP";
+        $response = Http::get($url);
+        
+        return $response;
+    }
 }
