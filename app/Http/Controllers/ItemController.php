@@ -36,9 +36,14 @@ class ItemController extends Controller
         }
         $items = $query->paginate(10);
 
+        $itemreviews = ItemReview::select('item_id')
+        ->selectRaw('COUNT(user_id) as count_user')
+        ->groupBy('item_id')
+        ->get();
+
         $genres = Genre::all();
         
-        return view('item.items',compact("items","genres"));
+        return view('item.items',compact('items','itemreviews','genres'));
     }
 /**************************************
  *作品登録画面の表示
@@ -257,9 +262,14 @@ public function reviewShow(){
     }
     $items = $query->paginate(10);
 
+    $itemreviews = ItemReview::select('item_id')
+    ->selectRaw('COUNT(user_id) as count_user')
+    ->groupBy('item_id')
+    ->get();
+
     $genres = Genre::all();
 
-    return view('item.review',compact('items','user','genres'));
+    return view('item.review',compact('items','user','itemreviews','genres'));
 }
 
 /*レビュー投稿機能*/

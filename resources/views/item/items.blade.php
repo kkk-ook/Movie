@@ -104,6 +104,11 @@
                                         <span class="material-icons review-stars">star</span>
                                         {{ $item->reviews->avg('stars') }}
                                     @endif
+                                    @foreach ($itemreviews as $itemreview)
+                                        @if ($itemreview->item_id == $item->id)
+                                            ({{ $itemreview->count_user }})
+                                        @endif
+                                    @endforeach
                                 </td>
                                 @can('admin-higher'){{-- 管理者に表示される --}}
                                     <td>{{ $item->created_at }}</td>

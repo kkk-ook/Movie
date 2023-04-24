@@ -84,6 +84,11 @@
                                     <span class="material-icons review-stars">star</span>
                                         {{ $item->reviews->avg('stars') }}
                                     @endif
+                                    @foreach ($itemreviews as $itemreview)
+                                        @if ($itemreview->item_id == $item->id)
+                                            ({{ $itemreview->count_user }})
+                                        @endif
+                                    @endforeach
                                 </td>
                                 @php
                                     $myreview = $item->reviews->first(function ($value, $key) use ($user)  {return $value->user_id == $user->id;});
