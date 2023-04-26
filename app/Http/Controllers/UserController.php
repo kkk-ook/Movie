@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\ItemReview;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -72,17 +73,20 @@ class UserController extends Controller
             $user = User::where('id' , '=' , $request->id)->first();
             //ユーザーIDが自分のIDだったら削除してログイン画面へ遷移
             if(($user->id == Auth::id())) {
+                $user->reviews()->delete();
                 $user->delete();
 
             return redirect('/');
             //他人のIDだったら削除してユーザー一覧画面に遷移
             }else{
+                $user->reviews()->delete();
                 $user->delete();
 
             return redirect('users');
             }
     }
 
+    
     //検索
     public function userSearch(Request $request){
         $query = User::query();

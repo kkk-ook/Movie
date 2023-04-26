@@ -82,7 +82,7 @@
                                 <td>
                                     @if($item->reviews->isNotEmpty())
                                     <span class="material-icons review-stars">star</span>
-                                        {{ $item->reviews->avg('stars') }}
+                                        {{ round($item->reviews->avg('stars'),1) }}
                                     @endif
                                     @foreach ($itemreviews as $itemreview)
                                         @if ($itemreview->item_id == $item->id)
