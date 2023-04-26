@@ -98,57 +98,76 @@ td{
     display: flex;
     margin-bottom: 3px;
 }
-.order{
-    height: 100%;
+/*キーワード*/
+.modal-body .keywordModal{
+    width: 100%;
+    margin-bottom: 30px;
+}
+.genre-order{
     display: flex;
 }
-.order-icon{
-    height: 38px;
-    z-index: 30;
+.modal-body .genre{
+    padding: 10px;
+    border-right: 1px solid #99a3ad;
 }
-.order-icon .material-icons{
-    color: #a9a9a9;
-    font-size: 36px !important;
-    cursor: pointer;
-    margin-left: 8px;
-    transition: .2s;
-}
-.order-icon .material-icons.visible{
-    color: #000;
-}
-
-.boxes {
-    display: flex;
-    margin: auto 0;
+/*チェックボックス*/
+.modal-body .order{
+    padding: 10px;
 }
 #boxes-1{
-    margin-left: 20px;
+    margin: 0 0 10px 10px;
     position: relative;
     display: block;
-    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
-    transform: translateX(-100%);
-    opacity: 0;
-    pointer-events: none;
+    transition: transform 0.5s ease-out;
 }
 #boxes-2{
-    margin-left: 20px;
+    margin: 0 0 10px 10px;
     position: relative;
     display: block;
-    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
-    transform: translateX(-100%);
-    opacity: 0;
-    pointer-events: none;
+    transition: transform 0.5s ease-out;
 }
-#boxes-1.visible{
-    transform: translateX(0);
-    opacity: 1;
-    pointer-events: auto;
+#boxes-3{
+    margin-left: 10px;
+    position: relative;
+    display: block;
+    transition: transform 0.5s ease-out;
 }
-#boxes-2.visible{
-    transform: translateX(0);
+input[type="checkbox"]{ 
+    display: none;
+}
+input[type="checkbox"] + label {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 20px;
+    font: 14px/20px 'Open Sans', Arial, sans-serif;
+    color: #000;
+    cursor: pointer;
+}
+input[type="checkbox"] + label:last-child {
+    margin-bottom: 0;
+}
+input[type="checkbox"] + label:before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #6495ed;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: .8;
+    transition: all .12s, border-color .08s;
+}
+input[type="checkbox"]:checked + label:before {
+    width: 10px;
+    top: -5px;
+    left: 5px;
+    border-radius: 0;
     opacity: 1;
-    pointer-events: auto;
-
+    border-top-color: transparent;
+    border-left-color: transparent;
+    transform: rotate(45deg);
 }
 
 .tool{
@@ -183,52 +202,9 @@ td{
     left: -88px;
     user-select: none 
 }
-
-/*Checkboxes styles*/
-input[type="checkbox"]{ 
-    display: none;
-}
-
-input[type="checkbox"] + label {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 20px;
-    font: 14px/20px 'Open Sans', Arial, sans-serif;
-    color: #000;
-    cursor: pointer;
-}
-
-input[type="checkbox"] + label:last-child {
-    margin-bottom: 0;
-}
-
-input[type="checkbox"] + label:before {
-    content: '';
-    display: block;
-    width: 20px;
-    height: 20px;
-    border: 1px solid #6495ed;
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: .8;
-    transition: all .12s, border-color .08s;
-}
-
-input[type="checkbox"]:checked + label:before {
-    width: 10px;
-    top: -5px;
-    left: 5px;
-    border-radius: 0;
-    opacity: 1;
-    border-top-color: transparent;
-    border-left-color: transparent;
-    transform: rotate(45deg);
-}
 .card{
     margin: 40px 0 40px 0;
-
+    
 }
 .detail ,
 .edit,

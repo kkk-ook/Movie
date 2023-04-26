@@ -222,6 +222,12 @@ class ItemController extends Controller
             $query->where('name', 'LIKE', "%{$keyword}%")
             -> orWhere('detail', 'LIKE', "%{$keyword}%");
         }
+        //キーワード検索
+        $keywordModal = $request->input('keywordModal');
+        if(!empty($keywordModal)) {
+            $query->where('name', 'LIKE', "%{$keywordModal}%")
+            -> orWhere('detail', 'LIKE', "%{$keywordModal}%");
+        }
     //チェックボックス
         //あいう順に並べる
         $orderKana = $request->input('orderKana');
@@ -229,10 +235,22 @@ class ItemController extends Controller
             $query->orderBy('kana', 'asc');
         }
         //レビュー順に並べる
+        //高い
+        $orderReviewDesc = $request->input('orderReviewDesc');
+        $orderReviewAsc = $request->input('orderReviewAsc');
+        if(!empty($orderReviewDesc)) {
         $query->leftJoin('item_reviews', 'items.id', '=', 'item_reviews.item_id')
         ->select('items.*', ItemReview::raw('AVG(item_reviews.stars) as avg_stars'))
         ->groupBy('items.id')
         ->orderByDesc('avg_stars');
+        //低い
+        }elseif(!empty($orderReviewAsc)){
+        $query->leftJoin('item_reviews', 'items.id', '=', 'item_reviews.item_id')
+        ->select('items.*', ItemReview::raw('AVG(item_reviews.stars) as avg_stars'))
+        ->groupBy('items.id')
+        ->orderBy('avg_stars','asc');
+        }
+
 
         $itemreviews = ItemReview::select('item_id')
         ->selectRaw('COUNT(user_id) as count_user')
@@ -345,10 +363,21 @@ public function review(Request $request) {
             $query->orderBy('kana', 'asc');
         }
         //レビュー順に並べる
+        //高い
+        $orderReviewDesc = $request->input('orderReviewDesc');
+        $orderReviewAsc = $request->input('orderReviewAsc');
+        if(!empty($orderReviewDesc)) {
         $query->leftJoin('item_reviews', 'items.id', '=', 'item_reviews.item_id')
         ->select('items.*', ItemReview::raw('AVG(item_reviews.stars) as avg_stars'))
         ->groupBy('items.id')
         ->orderByDesc('avg_stars');
+        //低い
+        }elseif(!empty($orderReviewAsc)){
+        $query->leftJoin('item_reviews', 'items.id', '=', 'item_reviews.item_id')
+        ->select('items.*', ItemReview::raw('AVG(item_reviews.stars) as avg_stars'))
+        ->groupBy('items.id')
+        ->orderBy('avg_stars','asc');
+        }
 
         $itemreviews = ItemReview::select('item_id')
         ->selectRaw('COUNT(user_id) as count_user')
@@ -359,7 +388,7 @@ public function review(Request $request) {
         //次のページへのリンクに追加
         $items->appends($queryParams);
 
-        return view('item.review', compact('items','genres','user'));
+        return view('item.review', compact('items','genres','user','itemreviews'));
 
     }
 

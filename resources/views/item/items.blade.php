@@ -19,32 +19,61 @@
     <div class="search-register">
         <form class="form-inline" action="{{ route('itemSearch') }}" method="get">
             <div class="form-group">
-                <!-- セレクトボックス -->
-                <select name="genre[]" class="form-control bg-light" aria-label="Default select example" multiple>
-                    <option value="" selected>ジャンルを選択</option>
-                    @foreach($genres as $genre)
-                        <option value="{{$genre->name}}">{{$genre->name}}</option>
-                    @endforeach
-                </select>
                 <!-- キーワード検索 -->
                 <input type="text" name="keyword" class="form-control pr-5" placeholder="キーワードを入力">
                 <input type="submit" value="検索" class="btn btn-primary">
-                <!-- チェックボックス -->
-                <div class="order">
-                    <div class="order-icon">
-                        <span class="material-icons" id="open">low_priority</span>
-                    </div>
-                    <div class="boxes">
-                        <div id="boxes-1">
-                            <input type="checkbox" id="box-1" name="orderKana[]">
-                            <label for="box-1">あいう順</label>
+                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <span class="material-icons">zoom_in</span>
+                </button>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">詳細検索</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- キーワード検索 -->
+                    <input type="text" name="keywordModal" class="form-control keywordModal" placeholder="キーワードを入力">
+                    <!-- セレクトボックス -->
+                    <div class="genre-order">
+                        <div class="genre">
+                            <h4>ジャンル</h4>
+                            <select name="genre[]" class="form-control" aria-label="Default select example" size="10" multiple>
+                                <option value="" selected>ジャンルを選択</option>
+                                @foreach($genres as $genre)
+                                    <option value="{{$genre->name}}">{{$genre->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div id="boxes-2">
-                            <input type="checkbox" id="box-2" name="orderReview[]">
-                            <label for="box-2">レビューが高い順</label>
+                        <!-- チェックボックス -->
+                        <div class="order">
+                            <h4>並び替え</h4>
+                            <div class="boxes">
+                                <div id="boxes-1">
+                                    <input type="checkbox" id="box-1" name="orderKana[]">
+                                    <label for="box-1">あいう順</label>
+                                </div>
+                                <div id="boxes-2">
+                                    <input type="checkbox" id="box-2" name="orderReviewDesc[]">
+                                    <label for="box-2">レビューが高い順</label>
+                                </div>
+                                <div id="boxes-3">
+                                    <input type="checkbox" id="box-3" name="orderReviewAsc[]">
+                                    <label for="box-3">レビューが低い順</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+                    <input type="submit" value="検索" class="btn btn-primary">
+                </div>
+                </div>
+            </div>
             </div>
         </form>
         @can('admin-higher'){{-- 管理者に表示される --}}
@@ -102,7 +131,7 @@
                                 <td>
                                     @if($item->reviews->isNotEmpty())
                                         <span class="material-icons review-stars">star</span>
-                                        {{ $item->reviews->avg('stars') }}
+                                        {{ round($item->reviews->avg('stars'),1) }}
                                     @endif
                                     @foreach ($itemreviews as $itemreview)
                                         @if ($itemreview->item_id == $item->id)

@@ -11,16 +11,6 @@
         }
     }
 
-//チェックボックス
-    const open = document.getElementById('open');
-    const boxes1 = document.getElementById('boxes-1');
-    const boxes2 = document.getElementById('boxes-2');
-
-    open.addEventListener('click', () =>{
-        boxes1.classList.toggle('visible');
-        boxes2.classList.toggle('visible');
-        open.classList.toggle('visible');
-    });
 
 //削除ボタン
 const jsDeletes = document.querySelectorAll('.js-delete');
