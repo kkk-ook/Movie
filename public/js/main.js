@@ -40,4 +40,22 @@ editCancels[element].addEventListener('click', () => {
     editCancels[element].classList.toggle('visible');
 });
 });
+
+//詳細ボタン
+const tools = document.querySelectorAll('.tool');
+
+tools.forEach((tool) => {
+    let timer;
+    const detail = tool.querySelector('.detail');
+    detail.addEventListener('mouseenter', () => {
+        timer = setTimeout(() => {
+            tool.classList.add('visible');
+        }, 700);
+    });
+    detail.addEventListener('mouseleave', () => {
+        clearTimeout(timer);
+        tool.classList.remove('visible');
+    });
+});
+
 }

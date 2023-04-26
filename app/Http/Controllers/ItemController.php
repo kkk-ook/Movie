@@ -146,7 +146,7 @@ class ItemController extends Controller
 
         $genres = Genre::all();
 
-        return view('item.itemEdit',compact("genres"))->with([
+        return view('item.itemEdit',compact('genres'))->with([
             'item' => $items,
         ]);
     }
@@ -208,6 +208,7 @@ class ItemController extends Controller
 
         //ジャンル
         $selectGenres = $request->input('genre');
+        
         if($selectGenres[0]!=null) {
             foreach($selectGenres as $genre){
                 $query->whereHas('genres', function ($q) use ($genre) {
@@ -232,12 +233,17 @@ class ItemController extends Controller
         ->select('items.*', ItemReview::raw('AVG(item_reviews.stars) as avg_stars'))
         ->groupBy('items.id')
         ->orderByDesc('avg_stars');
+
+        $itemreviews = ItemReview::select('item_id')
+        ->selectRaw('COUNT(user_id) as count_user')
+        ->groupBy('item_id')
+        ->get();
         
         $items = $query->paginate(10);
         //次のページへのリンクに追加
         $items->appends($queryParams);
 
-        return view('item.items', compact('items','genres'));
+        return view('item.items', compact('items','genres','itemreviews'));
 
     }
 
@@ -343,6 +349,11 @@ public function review(Request $request) {
         ->select('items.*', ItemReview::raw('AVG(item_reviews.stars) as avg_stars'))
         ->groupBy('items.id')
         ->orderByDesc('avg_stars');
+
+        $itemreviews = ItemReview::select('item_id')
+        ->selectRaw('COUNT(user_id) as count_user')
+        ->groupBy('item_id')
+        ->get();
         
         $items = $query->paginate(10);
         //次のページへのリンクに追加

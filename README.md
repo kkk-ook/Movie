@@ -1,36 +1,48 @@
-## 商品管理システム
+## MovieManager
+### 管理者は作品簡単登録・管理！ユーザーは簡単にレビュー！
 
-### 環境構築手順
+<img src="./public/img/app-img 2023-04-26 14.30.28.png">
 
-* Gitクローン
-* .env.example をコピーして .env を作成
-* MySQLかPostgreSQLのデータベース作成（名前：item_management）  
-  ローカルでMAMPを使用しているのであれば、MySQL推奨
-* .env にデータベース接続情報追加
+##　使い方
 ```
-例）
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=item_management
-DB_USERNAME=root
-DB_PASSWORD=root
+1.「register」で新規登録
+2.ログインは登録したメールアドレス・パスワードでできる
+3.管理者は作品の登録・削除・編集が行える
+4.ステータスがactiveの作品だけユーザーが閲覧可能
+5.ジャンルごとに絞り込みが可能
+6.キーワード検索で作品名・あらすじに当てはまる作品を検索
+7.あいう順・レビューが高い順でソートが可能
+8.レビューでスターとコメントで投稿可能
+　投稿内容はホーム画面のタイムラインへ
+9.プロフィールで名前とメールアドレスが編集可能
+10.管理者はユーザー管理画面で削除・管理者権限の付与が可能
 ```
-* APP_KEY生成
+
+このアプリを開発した際の制作発表で撮影した動画です。使い方の説明もあります。
+https://drive.google.com/file/d/18xDFL5CRFrhR5txLXtBiP1zYTXxtQLjC/view?usp=share_link
 ```
-$ php artisan key:generate
 ```
-* Composerインストール
+## 開発環境
+HTML/CSS/JavaScript/PHP/Laravel/Bootstrap/MySQL
 ```
-$ composer install
 ```
-* フロント環境構築
+## 設計書
+1.要件定義書
+https://docs.google.com/spreadsheets/d/1kEHHvwYu4TykbE24GaymxicKHiPgRvhF/edit?usp=share_link&ouid=111559747039699048456&rtpof=true&sd=true
+2.基本設計書
+https://docs.google.com/spreadsheets/d/1JvmuQ3R0EMIkbADVRlEyvOa86sh34BnR/edit?usp=share_link&ouid=111559747039699048456&rtpof=true&sd=true
+3.画面設計書
+https://docs.google.com/spreadsheets/d/1JBktD-kGsldAjg-NjQntGA49AyI9XhIp/edit?usp=share_link&ouid=111559747039699048456&rtpof=true&sd=true
+4.データベース定義書
+https://docs.google.com/spreadsheets/d/1K4J_yqYUOar7VFZGAfWJrqNvjhkE5bt5/edit?usp=share_link&ouid=111559747039699048456&rtpof=true&sd=true
+5.テスト仕様書
+https://docs.google.com/spreadsheets/d/1ugFFlvW8nHCvQ-xc37e3qg07d2kMcQei/edit?usp=share_link&ouid=111559747039699048456&rtpof=true&sd=true
 ```
-$ npm install
-$ npm run dev
 ```
-* マイグレーション
+## アプリケーション閲覧
+
+### テストアカウント
+メールアドレス:bbb@bbb
+パスワード:bbbbbbbb
 ```
-$ php artisan migrate
 ```
-# Movie

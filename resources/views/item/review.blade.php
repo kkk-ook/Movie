@@ -105,9 +105,12 @@
                                     </button>
                                 </td>
                                 <td>
-                                    <a href="{{ route('detail', ['id'=>$item->id]) }}" class="detail">
-                                        <span class="material-icons">description</span>
-                                    </a>
+                                    <div class="tool">
+                                        <a href="{{ route('detail', ['id'=>$item->id]) }}" class="detail">
+                                            <span class="material-icons">description</span>
+                                        </a>
+                                        <div class="description">詳細を見る</div>
+                                    </div>
                                 </td>
                                 
                                 <!-- モーダル -->

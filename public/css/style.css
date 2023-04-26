@@ -151,6 +151,39 @@ td{
 
 }
 
+.tool{
+    position: relative;
+    display: inline-block;
+}
+.description{
+    display: none;
+    position: absolute;
+    padding: 10px;
+    font-size: 12px;
+    line-height: 1.6em;
+    color: #fff;
+    border-radius: 5px;
+    background: #000;
+    width: 80px;
+    opacity: .8;
+}
+.description:before {
+    content: "";
+    position: absolute;
+    left: 96px;
+    border: 7px solid transparent;
+    border-top: 10px solid #000;
+    margin-left: -15px;
+    transform: rotateZ(270deg);
+    opacity: .8;
+    }
+.tool.visible .description{
+    display: inline-block;
+    top: -5px;
+    left: -88px;
+    user-select: none 
+}
+
 /*Checkboxes styles*/
 input[type="checkbox"]{ 
     display: none;

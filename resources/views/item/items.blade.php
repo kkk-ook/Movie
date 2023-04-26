@@ -106,7 +106,7 @@
                                     @endif
                                     @foreach ($itemreviews as $itemreview)
                                         @if ($itemreview->item_id == $item->id)
-                                            ({{ $itemreview->count_user }})
+                                        ({{ $itemreview->count_user }})
                                         @endif
                                     @endforeach
                                 </td>
@@ -114,9 +114,12 @@
                                     <td>{{ $item->created_at }}</td>
                                 @endcan
                                 <td>
-                                    <a href="{{ route('detail', ['id'=>$item->id]) }}" class="detail">
-                                        <span class="material-icons">description</span>
-                                    </a>
+                                    <div class="tool">
+                                        <a href="{{ route('detail', ['id'=>$item->id]) }}" class="detail">
+                                            <span class="material-icons">description</span>
+                                        </a>
+                                        <div class="description">詳細を見る</div>
+                                    </div>
                                 </td>
                                 @can('admin-higher'){{-- 管理者に表示される --}}
                                 <td>
