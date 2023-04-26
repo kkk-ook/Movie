@@ -20,12 +20,11 @@
 
 このアプリを開発した際の制作発表で撮影した動画です。使い方の説明もあります。
 https://drive.google.com/file/d/18xDFL5CRFrhR5txLXtBiP1zYTXxtQLjC/view?usp=share_link
-```
+
 ## 開発環境
 HTML/CSS/JavaScript/PHP/Laravel/Bootstrap/MySQL
-```
+
 ## 設計書
-```
 1.要件定義書
 https://docs.google.com/spreadsheets/d/1AP2w7JaxHC97n3gs5cUFNLsv0OaGcCnS/edit?usp=share_link&ouid=111559747039699048456&rtpof=true&sd=true
 2.基本設計書
@@ -36,9 +35,9 @@ https://docs.google.com/spreadsheets/d/1gi55d4ARds3-n81oUzZBQ-duR_OB1IKf/edit?us
 https://docs.google.com/spreadsheets/d/1Ci64g0la6s7QL41d29fE8nouitJ6vleW/edit?usp=share_link&ouid=111559747039699048456&rtpof=true&sd=true
 5.テスト仕様書
 https://docs.google.com/spreadsheets/d/1H-g2rNwn4-cpyCXsCmraUU_A6hOTTNrq/edit?usp=share_link&ouid=111559747039699048456&rtpof=true&sd=true
-```
 
 ## アプリケーション閲覧
+https://techis-movie.herokuapp.com/login
 
 ### テストアカウント
 メールアドレス:bbb@bbb
