@@ -26,13 +26,13 @@ HTML/CSS/JavaScript/PHP/Laravel/Bootstrap/MySQL/adminLTE
 
 ## 設計書
 1.要件定義書
-https://docs.google.com/spreadsheets/d/1AP2w7JaxHC97n3gs5cUFNLsv0OaGcCnS/edit?usp=share_link&ouid=111559747039699048456&rtpof=true&sd=true
+https://docs.google.com/spreadsheets/d/1AP2w7JaxHC97n3gs5cUFNLsv0OaGcCnS/edit?usp=share_link&ouid=111559747039699048456&rtpof=true&sd=true  
 2.基本設計書
-https://docs.google.com/spreadsheets/d/1AP2w7JaxHC97n3gs5cUFNLsv0OaGcCnS/edit?usp=share_link&ouid=111559747039699048456&rtpof=true&sd=true
+https://docs.google.com/spreadsheets/d/1AP2w7JaxHC97n3gs5cUFNLsv0OaGcCnS/edit?usp=share_link&ouid=111559747039699048456&rtpof=true&sd=true  
 3.画面設計書
-https://docs.google.com/spreadsheets/d/1gi55d4ARds3-n81oUzZBQ-duR_OB1IKf/edit?usp=share_link&ouid=111559747039699048456&rtpof=true&sd=true
+https://docs.google.com/spreadsheets/d/1gi55d4ARds3-n81oUzZBQ-duR_OB1IKf/edit?usp=share_link&ouid=111559747039699048456&rtpof=true&sd=true  
 4.データベース定義書
-https://docs.google.com/spreadsheets/d/1Ci64g0la6s7QL41d29fE8nouitJ6vleW/edit?usp=share_link&ouid=111559747039699048456&rtpof=true&sd=true
+https://docs.google.com/spreadsheets/d/1Ci64g0la6s7QL41d29fE8nouitJ6vleW/edit?usp=share_link&ouid=111559747039699048456&rtpof=true&sd=true  
 5.テスト仕様書
 https://docs.google.com/spreadsheets/d/1H-g2rNwn4-cpyCXsCmraUU_A6hOTTNrq/edit?usp=share_link&ouid=111559747039699048456&rtpof=true&sd=true
 
