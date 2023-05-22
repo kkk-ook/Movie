@@ -42,7 +42,7 @@ https://techis-movie.herokuapp.com/login
 ### テストアカウント
 管理者・・・
 メールアドレス:bbb@bbb
-パスワード:bbbbbbbb(b✖︎8個)
+パスワード:bbbbbbbb(b✖︎8個)  
 ユーザー・・・
 メールアドレス:ccc@ccc
 パスワード:cccccccc(c✖︎8個)
