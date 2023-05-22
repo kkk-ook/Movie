@@ -5,7 +5,7 @@
 
 ## 使い方
 ```
-1.「register」で新規登録
+1.「新規登録」で新規登録
 2.ログインは登録したメールアドレス・パスワードでできる
 3.管理者は作品の登録・削除・編集が行える
 4.ステータスがactiveの作品だけユーザーが閲覧可能
@@ -22,7 +22,7 @@
 https://drive.google.com/file/d/18xDFL5CRFrhR5txLXtBiP1zYTXxtQLjC/view?usp=share_link
 
 ## 開発環境
-HTML/CSS/JavaScript/PHP/Laravel/Bootstrap/MySQL
+HTML/CSS/JavaScript/PHP/Laravel/Bootstrap/MySQL/adminLTE
 
 ## 設計書
 1.要件定義書
@@ -40,6 +40,9 @@ https://docs.google.com/spreadsheets/d/1H-g2rNwn4-cpyCXsCmraUU_A6hOTTNrq/edit?us
 https://techis-movie.herokuapp.com/login
 
 ### テストアカウント
+管理者・・・
 メールアドレス:bbb@bbb
-パスワード:bbbbbbbb
-
+パスワード:bbbbbbbb(b✖︎8個)
+ユーザー・・・
+メールアドレス:ccc@ccc
+パスワード:cccccccc(c✖︎8個)
