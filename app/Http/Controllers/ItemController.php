@@ -57,40 +57,11 @@ class ItemController extends Controller
 
     /*作品登録 */
     //  //API
-    // public function itemCreate(Request $request) {
-
-    //     $this->validate($request, [
-    //         'name' => 'required|max:100',
-    //         'kana' => 'required|regex:/^[ぁ-んァ-ンー]+$/u',
-    //         'status'=>'required',
-    //         'genre_id' => 'required',
-    //         'detail' => 'required|max:500',
-    //     ],
-    //     [
-    //         'name.required' => '作品名が入力されていません。',
-    //         'kana.required' => 'よみがなが入力されていません。',
-    //         'status.required' => 'ステータスが選択されていません。',
-    //         'genre_id.required'  => 'ジャンルが選択されていません。',
-    //         'detail.required'  => 'あらすじが入力されていません。',
-    //     ]);
-
-    //     $item=Item::create([
-    //         'name' => $request->name,
-    //         'kana' => $request->kana,
-    //         'status' => $request->status,
-    //         'detail' => $request->detail
-    //     ]);
-
-    //     $item->genres()->attach($request->genre_id);
-        
-    //     //作品一覧画面に戻る  
-    //     return redirect('items');
-    // }
-
     public function itemCreate(Request $request) {
+
         $this->validate($request, [
             'name' => 'required|max:100',
-            'kana' => 'required|regex:/^[ぁ-んァ-ンー・:0-9]+$/u',
+            'kana' => 'required|regex:/^[ぁ-んァ-ンー]+$/u',
             'status'=>'required',
             'genre_id' => 'required',
             'detail' => 'required|max:500',
@@ -103,29 +74,58 @@ class ItemController extends Controller
             'detail.required'  => 'あらすじが入力されていません。',
         ]);
 
+        $item=Item::create([
+            'name' => $request->name,
+            'kana' => $request->kana,
+            'status' => $request->status,
+            'detail' => $request->detail
+        ]);
 
-        // TMDbのAPI
-        $url = "https://api.themoviedb.org/3/discover/movie?api_key=07aa94898a090213deeb2419143516cf&language=ja-JP&region=US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_original_language=en&with_watch_monetization_types=flatrate&language=ja-JP";
-        $response = Http::get($url);
-    
-        $movies = $response['results'];
-    
-        foreach ($movies as $movie) {
-            $item = new Item;
-            $item->name = $movie['title'];
-            $item->kana = '';
-            $item->status = 'active';
-            $item->detail = $movie['overview'];
-            $item->save();
-    
-            // ジャンルのIDをランダムで選択する
-            $genre_id = Genre::inRandomOrder()->first()->id;
-    
-            $item->genres()->attach($genre_id);
-        }
-    
+        $item->genres()->attach($request->genre_id);
+        
+        //作品一覧画面に戻る  
         return redirect('items');
     }
+
+    // public function itemCreate(Request $request) {
+    //     $this->validate($request, [
+    //         'name' => 'required|max:100',
+    //         'kana' => 'required|regex:/^[ぁ-んァ-ンー・:0-9]+$/u',
+    //         'status'=>'required',
+    //         'genre_id' => 'required',
+    //         'detail' => 'required|max:500',
+    //     ],
+    //     [
+    //         'name.required' => '作品名が入力されていません。',
+    //         'kana.required' => 'よみがなが入力されていません。',
+    //         'status.required' => 'ステータスが選択されていません。',
+    //         'genre_id.required'  => 'ジャンルが選択されていません。',
+    //         'detail.required'  => 'あらすじが入力されていません。',
+    //     ]);
+
+
+    //     // TMDbのAPI
+    //     $url = "https://api.themoviedb.org/3/discover/movie?api_key=07aa94898a090213deeb2419143516cf&language=ja-JP&region=US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_original_language=en&with_watch_monetization_types=flatrate&language=ja-JP";
+    //     $response = Http::get($url);
+    
+    //     $movies = $response['results'];
+    
+    //     foreach ($movies as $movie) {
+    //         $item = new Item;
+    //         $item->name = $movie['title'];
+    //         $item->kana = '';
+    //         $item->status = 'active';
+    //         $item->detail = $movie['overview'];
+    //         $item->save();
+    
+    //         // ジャンルのIDをランダムで選択する
+    //         $genre_id = Genre::inRandomOrder()->first()->id;
+    
+    //         $item->genres()->attach($genre_id);
+    //     }
+    
+    //     return redirect('items');
+    // }
 
 /*************************************
  * 詳細画面の表示
