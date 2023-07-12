@@ -260,6 +260,7 @@ class ItemController extends Controller
         $items = $query->paginate(10);
         //次のページへのリンクに追加
         $items->appends($queryParams);
+        $items->withQueryString();
 
         return view('item.items', compact('items','genres','itemreviews'));
 
@@ -387,6 +388,7 @@ public function review(Request $request) {
         $items = $query->paginate(10);
         //次のページへのリンクに追加
         $items->appends($queryParams);
+        $items->withQueryString();
 
         return view('item.review', compact('items','genres','user','itemreviews'));
 
