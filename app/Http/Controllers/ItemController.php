@@ -219,11 +219,9 @@ class ItemController extends Controller
         $selectGenres = $request->input('genre');
 
         if ($selectGenres[0] != null) {
-            foreach ($selectGenres as $genre) {
-                $query->whereHas('genres', function ($q) use ($genre) {
-                    $q->where('name', $genre);
-                }, '=', count($selectGenres));
-            }
+            $query->whereHas('genres', function ($q) use ($selectGenres) {
+                $q->whereIn('name', $selectGenres);
+            });
         }
         //キーワード検索
         $keyword = $request->input('keyword');
@@ -363,11 +361,9 @@ public function review(Request $request) {
         $selectGenres = $request->input('genre');
 
         if ($selectGenres[0] != null) {
-            foreach ($selectGenres as $genre) {
-                $query->whereHas('genres', function ($q) use ($genre) {
-                    $q->where('name', $genre);
-                }, '=', count($selectGenres));
-            }
+            $query->whereHas('genres', function ($q) use ($selectGenres) {
+                $q->whereIn('name', $selectGenres);
+            });
         }
         //キーワード検索
         $keyword = $request->input('keyword');
