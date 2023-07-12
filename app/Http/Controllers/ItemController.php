@@ -207,21 +207,14 @@ class ItemController extends Controller
         $queryParams = $request->query();
 
         //ジャンル
-        // $selectGenres = $request->input('genre');
-        
-        // if($selectGenres[0]!=null) {
-        //     foreach($selectGenres as $genre){
-        //         $query->whereHas('genres', function ($q) use ($genre) {
-        //             $q->where('name', $genre);
-        //         });
-        //     }
-        // }
         $selectGenres = $request->input('genre');
-
-        if ($selectGenres[0] != null) {
-            $query->whereHas('genres', function ($q) use ($selectGenres) {
-                $q->whereIn('name', $selectGenres);
-            });
+        
+        if($selectGenres[0]!=null) {
+            foreach($selectGenres as $genre){
+                $query->whereHas('genres', function ($q) use ($genre) {
+                    $q->where('name', $genre);
+                });
+            }
         }
         //キーワード検索
         $keyword = $request->input('keyword');
@@ -349,21 +342,14 @@ public function review(Request $request) {
         $queryParams = $request->query();
 
         //ジャンル
-        // $selectGenres = $request->input('genre');
-        
-        // if($selectGenres[0]!=null) {
-        //     foreach($selectGenres as $genre){
-        //         $query->whereHas('genres', function ($q) use ($genre) {
-        //             $q->where('name', $genre);
-        //         });
-        //     }
-        // }
         $selectGenres = $request->input('genre');
-
-        if ($selectGenres[0] != null) {
-            $query->whereHas('genres', function ($q) use ($selectGenres) {
-                $q->whereIn('name', $selectGenres);
-            });
+        
+        if($selectGenres[0]!=null) {
+            foreach($selectGenres as $genre){
+                $query->whereHas('genres', function ($q) use ($genre) {
+                    $q->where('name', $genre);
+                });
+            }
         }
         //キーワード検索
         $keyword = $request->input('keyword');
