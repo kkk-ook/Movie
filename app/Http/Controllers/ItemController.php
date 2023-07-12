@@ -207,13 +207,22 @@ class ItemController extends Controller
         $queryParams = $request->query();
 
         //ジャンル
-        $selectGenres = $request->input('genre');
+        // $selectGenres = $request->input('genre');
         
-        if($selectGenres[0]!=null) {
-            foreach($selectGenres as $genre){
+        // if($selectGenres[0]!=null) {
+        //     foreach($selectGenres as $genre){
+        //         $query->whereHas('genres', function ($q) use ($genre) {
+        //             $q->where('name', $genre);
+        //         });
+        //     }
+        // }
+        $selectGenres = $request->input('genre');
+
+        if ($selectGenres[0] != null) {
+            foreach ($selectGenres as $genre) {
                 $query->whereHas('genres', function ($q) use ($genre) {
                     $q->where('name', $genre);
-                });
+                }, '=', count($selectGenres));
             }
         }
         //キーワード検索
@@ -342,13 +351,22 @@ public function review(Request $request) {
         $queryParams = $request->query();
 
         //ジャンル
-        $selectGenres = $request->input('genre');
+        // $selectGenres = $request->input('genre');
         
-        if($selectGenres[0]!=null) {
-            foreach($selectGenres as $genre){
+        // if($selectGenres[0]!=null) {
+        //     foreach($selectGenres as $genre){
+        //         $query->whereHas('genres', function ($q) use ($genre) {
+        //             $q->where('name', $genre);
+        //         });
+        //     }
+        // }
+        $selectGenres = $request->input('genre');
+
+        if ($selectGenres[0] != null) {
+            foreach ($selectGenres as $genre) {
                 $query->whereHas('genres', function ($q) use ($genre) {
                     $q->where('name', $genre);
-                });
+                }, '=', count($selectGenres));
             }
         }
         //キーワード検索
